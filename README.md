@@ -8,7 +8,7 @@
 
 A standardized LaTeX template designed for homework assignments, laboratory reports (*mérési jegyzőkönyvek*), and technical projects at **Budapest University of Technology and Economics (BME)**.
 
-- **Engine:** `lualatex` (with `-shell-escape` for inline Lua and listings)
+- **Compiler:** `lualatex` (with `-shell-escape` for inline Lua and listings)
 - **Language:** Hungarian (`\usepackage[magyar]{babel}` with continental decimal commas)
 - **Compilation:**
   ```bash
