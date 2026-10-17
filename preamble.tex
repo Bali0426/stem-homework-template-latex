@@ -78,9 +78,9 @@
 % Thick (1.5pt) gray divider rule for commented sections
 \newcommand{\matlabrule}{%
   \makebox[0pt][l]{%
-    \hspace*{-24pt}%
+    \hspace*{-28pt}%
     \raisebox{1.8ex}[0pt][0pt]{%
-      \color{matlabSectionRule}\rule{\dimexpr\linewidth+24pt\relax}{1.5pt}%
+      \color{matlabSectionRule}\rule{\dimexpr\linewidth+28pt\relax}{1.5pt}%
     }%
   }%
 }
@@ -93,9 +93,9 @@
   stringstyle=\color{matlabString},
   numbers=left,
   numberstyle=\tiny\color{matlabNumber},
-  numbersep=8pt,
+  numbersep=10pt,
   frame=none,
-  xleftmargin=24pt,
+  xleftmargin=28pt,
   escapeinside={(*@}{@*)},
   breaklines=true,
   showstringspaces=false,
@@ -124,10 +124,12 @@
   bottom=6pt,
   boxsep=0pt,
   underlay unbroken and first={
-    \fill[matlabGutterBg] (interior.south west) rectangle ([xshift=24pt]interior.north west);
+    \fill[matlabGutterBg] (interior.south west) rectangle ([xshift=22pt]interior.north west);
+    \draw[matlabSectionRule, line width=1.5pt] ([xshift=22pt]interior.south west) -- ([xshift=22pt]interior.north west);
   },
   underlay middle and last={
-    \fill[matlabGutterBg] (interior.south west) rectangle ([xshift=24pt]interior.north west);
+    \fill[matlabGutterBg] (interior.south west) rectangle ([xshift=22pt]interior.north west);
+    \draw[matlabSectionRule, line width=1.5pt] ([xshift=22pt]interior.south west) -- ([xshift=22pt]interior.north west);
   },
   #1
 }

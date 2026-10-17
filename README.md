@@ -254,6 +254,7 @@ Optikai szűrő hullámhossza & $400 - 700\text{ nm}$ (VIS tartomány) \\ \hline
 Renders MATLAB code replicating the MATLAB editor dark theme:
 - **Editor background**: `rgba(18, 18, 18)` (`#121212`)
 - **Gutter background (behind line numbers)**: `rgba(33, 33, 33)` (`#212121`)
+- **Vertical gutter divider line**: `rgba(125, 125, 125)` (`#7D7D7D`), 1.5pt rule separating line numbers and code text
 - **Section divider lines (`\matlabrule`)**: `rgba(125, 125, 125)` (`#7D7D7D`), 1.5pt thick rule placed above `%%` section headers
 - **Syntax highlighting**: Lime-green comments (`#94EF84`), purple keywords (`#D694FF`), peach strings (`#F5AF73`), and muted gray line numbers (`#888888`)
 
