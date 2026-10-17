@@ -1,0 +1,155 @@
+% ==============================================================================
+% BME STEM Homework & Technical Report Template - Master Preamble
+% ==============================================================================
+
+% --- Core Typography & Localization ---
+\usepackage{lmodern}
+\usepackage[magyar]{babel}
+\usepackage{microtype}
+
+% --- Page Geometry ---
+\usepackage[
+  a4paper,
+  left=2.5cm,
+  right=2.5cm,
+  top=30mm,
+  bottom=30mm,
+  headheight=49pt
+]{geometry}
+
+% --- Graphics & PDF Integration ---
+\usepackage{graphicx}
+\usepackage{pdfpages}
+
+% --- Color Palette (BME Corporate & Technical Styling) ---
+\usepackage[table]{xcolor}
+\definecolor{BMEred}{RGB}{209, 0, 0}
+\definecolor{BMEgreen}{RGB}{85, 157, 0}
+\definecolor{mygreen}{RGB}{28, 172, 0}
+\definecolor{mylilas}{RGB}{170, 55, 241}
+\definecolor{tableGray}{gray}{0.95}
+
+% --- Mathematics & Units ---
+\usepackage{amsmath, amssymb, mathtools}
+\usepackage{siunitx}
+\sisetup{
+  output-decimal-marker = {,},
+  group-separator = {\,},
+  per-mode = symbol
+}
+
+% --- Tables Styling ---
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+% --- TikZ & Block Diagrams ---
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning,calc}
+\tikzset{
+  block/.style={rectangle, draw, thick, fill=gray!10, minimum height=3em, minimum width=4.5em, align=center},
+  sum/.style={draw, circle, inner sep=0mm, minimum size=6mm, thick},
+  input/.style={coordinate},
+  output/.style={coordinate},
+  >=Stealth
+}
+
+% --- Data Plots (pgfplots) ---
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% --- Code Listings ---
+\usepackage{listings}
+\lstset{
+  frame=single,
+  basicstyle=\ttfamily\footnotesize,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=9pt,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{mygreen}\itshape,
+  stringstyle=\color{mylilas},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b
+}
+
+% --- Lua Computation Bridge ---
+\usepackage{luacode}
+
+% --- Header & Footer Architecture (fancyhdr) ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+% Running Header
+\fancyhead[L]{%
+  \ifx\DepartmentIconPath\empty\else
+    \includegraphics[height=1cm]{\DepartmentIconPath}%
+  \fi
+}
+\fancyhead[R]{%
+  \parbox[b]{15cm}{\raggedleft
+    \large\textbf{\CourseName}\\[2pt]
+    \normalsize\textbf{\CourseCode}\vspace{0.5cm}
+  }%
+}
+
+% Full-bleed 3pt BME-green header divider
+\renewcommand{\headrule}{%
+  \nointerlineskip
+  \makebox[0pt][l]{\hspace*{-\oddsidemargin}\hspace*{-1in}\color{BMEgreen}\rule{\paperwidth}{3pt}}%
+}
+
+% Running Footer
+\fancyfoot[C]{\thepage. oldal}
+\fancyfoot[R]{\small\StudentName\\\NeptunCode}
+\renewcommand{\footrulewidth}{0pt}
+
+% Redefine plain page style for compatibility
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\thepage. oldal}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% --- Problem & Solution Environments ---
+\usepackage{mdframed}
+\newcounter{problemcounter}
+\newenvironment{problem}[1][]{%
+  \refstepcounter{problemcounter}%
+  \begin{mdframed}[
+    linecolor=BMEgreen,
+    linewidth=1.5pt,
+    roundcorner=4pt,
+    backgroundcolor=gray!3,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    innerleftmargin=12pt,
+    innerrightmargin=12pt,
+    skipabove=12pt,
+    skipbelow=10pt
+  ]%
+  \textbf{\textcolor{BMEgreen}{\theproblemcounter. Feladat}}%
+  \if\relax\detokenize{#1}\relax\else\ \textbf{(#1)}\fi\par\vspace{4pt}%
+}{%
+  \end{mdframed}%
+}
+
+\newenvironment{solution}{%
+  \par\noindent\textbf{\textcolor{BMEred}{Megoldás:}}\par\vspace{4pt}%
+}{%
+  \vspace{8pt}%
+}
+
+% --- Hyperlinks & Bookmarks ---
+\usepackage[
+  colorlinks=true,
+  linkcolor=BMEred,
+  citecolor=BMEgreen,
+  urlcolor=blue,
+  pdfauthor={\StudentName},
+  pdftitle={\AssignmentTitle}
+]{hyperref}
+\usepackage{bookmark}

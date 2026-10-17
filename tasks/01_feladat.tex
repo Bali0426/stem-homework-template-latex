@@ -1,0 +1,67 @@
+% ==============================================================================
+% 1. Feladat: Rendszermodellezés és Paraméterillesztés
+% ==============================================================================
+
+\section{Feladat: Rendszermodellezés és Paraméterillesztés}
+
+% Demonstration of the inline Lua computation bridge
+\begin{luacode*}
+function compute_parameters()
+    local s_dist = 200.0   -- mm
+    local phi_deg = 2.0    -- degree
+    local phi_rad = phi_deg * math.pi / 180.0
+    local f_target = s_dist * math.tan(phi_rad / 2.0)
+    tex.print(string.format("\\def\\calcFocLength{%.2f}", f_target))
+end
+\end{luacode*}
+\directlua{compute_parameters()}
+
+\begin{problem}[15 pont]
+Határozza meg a mérőrendszer bemeneti paramétereit a megadott \NeptunCode\ Neptun-kód alapján, majd vezesse le a finomállító pozicionáló tag átviteli függvényét az elektromechanikai differenciálegyenletekből!
+\end{problem}
+
+\subsection{Megadott feladatparaméterek}
+A feladathoz tartozó kiindulási értékeket az \textbf{1. táblázat} foglalja össze a Style A (3 oszlopos, fehér rácsvonalas) specifikáció szerint \cite{bme_mogi_meresi_utmutato}.
+
+% --- STYLE A: 3-Column Input Parameters Table ---
+\begin{table}[ht!]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{8pt}
+\setlength{\arrayrulewidth}{2pt}
+\arrayrulecolor{white}
+\rowcolors{2}{white}{tableGray}
+\begin{tabularx}{\textwidth}{|X|X|X|}
+\hline
+\rowcolor{white}
+\textbf{Megnevezés} & \textbf{Jelölés} & \textbf{Adat} \\ \hline
+Tárgy látószöge & $\varphi$ & $2^\circ$ \\ \hline
+Legkisebb detektálandó méret & $x_{\min}$ & $0{,}50\text{ mm}$ \\ \hline
+Tárgytávolság & $s$ & $200\text{ mm}$ \\ \hline
+Laterális mozgási sebesség & $v$ & $0{,}01\text{ m/s}$ \\ \hline
+Elméleti gyújtótávolság (Lua) & $f_{\text{calc}}$ & $\calcFocLength\text{ mm}$ \\ \hline
+Megvilágítás típusa & --- & Természetes monokróm \\ \hline
+\end{tabularx}
+\caption{A megadott bemeneti paraméterek a \NeptunCode\ Neptun-kód alapján \cite{bme_mogi_meresi_utmutato}}
+\label{tab:megadott_adatok}
+\end{table}
+
+\subsection{Matematikai levezetés és átviteli függvény}
+A pozicionáló elektromechanikai alrendszer dinamikai egyenlete a Newton--Euler egyenlet és a huroktörvény alapján írható fel:
+\begin{equation}
+  J \ddot{\theta}(t) + b \dot{\theta}(t) + k \theta(t) = K_t \cdot i(t),
+  \label{eq:mechanical_motion}
+\end{equation}
+ahol $J$ a redukált tehetetlenségi nyomaték, $b$ a csillapítási tényező, $k$ a visszatérítő rugómerevség, $K_t$ pedig a motor nyomatéktényezője.
+
+Alkalmazva a Laplace-transzformációt zérus kezdeti feltételek mellett:
+\begin{equation}
+  (J s^2 + b s + k) \Theta(s) = K_t I(s).
+\end{equation}
+
+A rendszer szakasz-átviteli függvénye a szögelfordulás $\Theta(s)$ és a motoráram $I(s)$ között:
+\begin{equation}
+  \mathbf{P(s) = \frac{\Theta(s)}{I(s)} = \frac{\frac{K_t}{J}}{s^2 + \frac{b}{J}s + \frac{k}{J}} = \frac{K}{T_0^2 s^2 + 2\zeta T_0 s + 1}},
+  \label{eq:transfer_function}
+\end{equation}
+ahol az időállandó $T_0 = \sqrt{J/k}$ és a csillapítási viszony $\zeta = \frac{b}{2\sqrt{J k}}$.

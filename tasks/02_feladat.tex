@@ -1,0 +1,99 @@
+% ==============================================================================
+% 2. Feladat: Irányítási Hurok Tervezése és Szimuláció
+% ==============================================================================
+
+\section{Feladat: Irányítási Hurok Tervezése és Szimuláció}
+
+\begin{problem}[20 pont]
+Tervezzen zárt szabályozási kört az 1. feladatban meghatározott szakaszhoz! Készítse el a hatásvázlatot TikZ környezetben, majd ábrázolja az egységugrásra adott zárt köri válaszfüggvényt és hibajelet a specifikált BME színpaletta segítségével!
+\end{problem}
+
+\subsection{A szabályozási kör hatásvázlata}
+A zárt szabályozási kör negatív visszacsatolású struktúrája a zavaró jellemző figyelembevételével az \textbf{1. ábrán} látható.
+
+\begin{figure}[ht!]
+\centering
+\begin{tikzpicture}[auto, node distance=2.2cm]
+  % Nodes
+  \node [input, name=input] {};
+  \node [sum, right=1.2cm of input] (sum1) {};
+  \node [block, right=1.5cm of sum1] (controller) {$C(s)$\\PID Szabályozó};
+  \node [sum, right=1.5cm of controller] (sum2) {};
+  \node [block, right=1.5cm of sum2] (plant) {$P(s)$\\Szakasz};
+  \node [output, right=2.0cm of plant] (output) {};
+  \node [input, above=1.5cm of sum2] (disturbance) {};
+  \node [block, below=1.2cm of controller] (sensor) {$H(s)$\\Szenzor / Szűrő};
+
+  % Connections
+  \draw [->, thick] (input) -- node [pos=0.2] {$r(t)$} node [very near end] {$+$} (sum1);
+  \draw [->, thick] (sum1) -- node {$e(t)$} (controller);
+  \draw [->, thick] (controller) -- node [very near end] {$+$} (sum2);
+  \draw [->, thick] (disturbance) -- node [pos=0.2] {$d(t)$} node [very near end] {$+$} (sum2);
+  \draw [->, thick] (sum2) -- node {$u(t)$} (plant);
+  \draw [->, thick] (plant) -- node [name=y, pos=0.7] {$y(t)$} (output);
+  
+  % Feedback loop
+  \draw [->, thick] (y) |- (sensor);
+  \draw [->, thick] (sensor) -| node [very near end] {$-$} (sum1);
+\end{tikzpicture}
+\caption{A pozicionáló optikai rendszer zárt szabályozási körének hatásvázlata}
+\label{fig:control_loop_tikz}
+\end{figure}
+
+\subsection{Időtartományi dinamikai válaszok (pgfplots)}
+A zárt kör lépésválasza az előírt BME színsémával az alábbi görbéket követi \cite{hegedus2020szabalyozastechnika}:
+\begin{itemize}
+  \item \textbf{Alapjel ($r(t)$):} \textcolor{BMEred}{BMEred}, szaggatott vonal ($w = 1$).
+  \item \textbf{Kimeneti jel ($y(t)$):} \textcolor{blue}{kék}, folytonos vastag vonal ($1{,}5\text{ pt}$).
+  \item \textbf{Hibajel ($e(t)$):} \textcolor{orange}{narancssárga}, folytonos vonal.
+  \item \textbf{Kimeneti zavarás ($d_o(t)$):} \textcolor{green!60!black}{zöld}, pontozott vonal a $t = 5\text{ s}$ időpillanattól.
+\end{itemize}
+
+\begin{figure}[ht!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=15cm,
+    height=8.5cm,
+    grid=both,
+    grid style={line width=.1pt, draw=gray!20},
+    major grid style={line width=.2pt, draw=gray!40},
+    axis lines=middle,
+    xlabel={$t\ [\text{s}]$},
+    ylabel={Jel amplitúdó},
+    xmin=0, xmax=10,
+    ymin=-0.2, ymax=1.5,
+    legend pos=north east,
+    legend style={font=\footnotesize, fill=white, fill opacity=0.9},
+    samples=300
+]
+
+% Reference input r(t)
+\addplot[domain=0:10, color=BMEred, dashed, line width=1.2pt] {1.0};
+\addlegendentry{Alapjel $r(t)$}
+
+% System output y(t) with overshoot and decay
+\addplot[domain=0:10, color=blue, line width=1.5pt] {
+  1.0 - exp(-1.2*x)*(cos(deg(3.14*x)) + 0.38*sin(deg(3.14*x))) + 
+  (x > 5 ? 0.25*exp(-1.5*(x-5))*sin(deg(4.0*(x-5))) : 0)
+};
+\addlegendentry{Kimenet $y(t)$}
+
+% Error signal e(t)
+\addplot[domain=0:10, color=orange, line width=1.2pt] {
+  exp(-1.2*x)*(cos(deg(3.14*x)) + 0.38*sin(deg(3.14*x))) -
+  (x > 5 ? 0.25*exp(-1.5*(x-5))*sin(deg(4.0*(x-5))) : 0)
+};
+\addlegendentry{Hibajel $e(t)$}
+
+% Disturbance step at t=5s
+\addplot[domain=5:10, color=green!60!black, dotted, line width=1.4pt] {
+  0.25*exp(-1.5*(x-5))
+};
+\addlegendentry{Zavaráslecsengés $d_o(t)$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{A zárt rendszer időtartományi lépésválasza, hibajele és zavaráselnyomása}
+\label{fig:step_response_pgfplots}
+\end{figure}

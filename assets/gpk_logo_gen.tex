@@ -1,0 +1,42 @@
+\documentclass[tikz,border=0pt]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\definecolor{BMEred}{RGB}{209, 0, 0}
+\definecolor{BMEgreen}{RGB}{85, 157, 0}
+\definecolor{DarkBlue}{RGB}{20, 50, 100}
+
+\begin{document}
+\begin{tikzpicture}
+  \path[use as bounding box] (0, 0) rectangle (6, 6);
+  \fill[white] (0, 0) rectangle (6, 6);
+
+  % Outer gear ring
+  \begin{scope}[shift={(3, 3)}]
+    % Gear teeth
+    \foreach \a in {0, 30, ..., 330} {
+      \draw[fill=DarkBlue, draw=DarkBlue] (\a-5:2.7) -- (\a-4:2.95) -- (\a+4:2.95) -- (\a+5:2.7) -- cycle;
+    }
+    % Gear rim
+    \draw[fill=DarkBlue, draw=DarkBlue] (0,0) circle (2.7);
+    \draw[fill=white, draw=DarkBlue, line width=1.5pt] (0,0) circle (2.1);
+    
+    % Inner decorative ring
+    \draw[BMEred, line width=2pt] (0,0) circle (1.85);
+
+    % Center compass / caliper / mechanism geometry
+    \draw[DarkBlue, line width=3pt, line cap=round] (-0.8, -1.0) -- (0, 1.2) -- (0.8, -1.0);
+    \draw[DarkBlue, line width=2pt] (-0.5, -0.2) -- (0.5, -0.2);
+    \draw[fill=BMEred, draw=white, line width=1pt] (0, 1.2) circle (0.22);
+    
+    % Center labels
+    \node[DarkBlue, font=\fontsize{18}{22}\bfseries\rmfamily] at (0, 0.4) {GPK};
+    \node[BMEred, font=\fontsize{9}{11}\bfseries\rmfamily] at (0, -0.6) {1871};
+
+    % Circular text around ring
+    \node[white, font=\fontsize{7.5}{9}\bfseries\sffamily] at (0, 2.38) {B U D A P E S T};
+    \node[white, font=\fontsize{6.5}{8}\bfseries\sffamily] at (0, -2.4) {GÉPÉSZMÉRNÖKI KAR};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

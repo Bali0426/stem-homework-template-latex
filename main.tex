@@ -1,0 +1,118 @@
+% !TEX program = lualatex
+% ==============================================================================
+% BME STEM Homework & Technical Report LaTeX Template
+% Budapesti Műszaki és Gazdaságtudományi Egyetem (BME)
+% ==============================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% --- Load Metadata and Master Preamble ---
+\input{metadata.tex}
+\input{preamble.tex}
+
+\begin{document}
+
+% ==============================================================================
+% 1. COVER PAGE (BME Standard Institutional Layout)
+% ==============================================================================
+\begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+
+  % Top Title Block
+  \vspace*{1.0cm}
+  {\Huge\texttt{\textbf{\AssignmentTitle}}\par}
+  
+  \vspace{2.2cm}
+  {\LARGE\textbf{\StudentName \quad \NeptunCode}\par}
+  \vspace{0.4cm}
+  {\large\textit{\DegreeProgram}\par}
+
+  \vspace{1.2cm}
+  {\large\textbf{\FacultyName}, \UniversityName\par}
+  \vspace{0.25cm}
+  {\large \CourseName\ -- \textbf{\CourseCode}\par}
+  \vspace{0.25cm}
+  {\large Tárgyfelelős / Oktató: \InstructorName\par}
+
+  \vspace{0.8cm}
+  {\normalsize \DocumentDate\par}
+  \vspace{0.5cm}
+
+  % Full-Bleed 3pt BME-green Divider Rule
+  \noindent\makebox[0pt][l]{\hspace*{-\oddsidemargin}\hspace*{-1in}\color{BMEgreen}\rule{\paperwidth}{3pt}}\par
+
+  % Bottom Institutional Logo Strip (3 Columns)
+  \vfill
+  \begin{minipage}[t]{0.38\textwidth}
+    \centering
+    \ifx\UniversityLogoPath\empty\else
+      \includegraphics[height=1.5cm]{\UniversityLogoPath}\\[6pt]
+    \fi
+    {\footnotesize \textbf{\UniversityName}\\[2pt]
+    \UniversityAddress\par}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.24\textwidth}
+    \centering
+    \ifx\FacultyLogoPath\empty\else
+      \includegraphics[height=1.8cm]{\FacultyLogoPath}\\[6pt]
+    \fi
+    {\footnotesize \textbf{\FacultyName}\\[2pt]
+    (\FacultyShort)\par}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.34\textwidth}
+    \centering
+    \ifx\DepartmentIconPath\empty\else
+      \includegraphics[height=1.4cm]{\DepartmentIconPath}\\[6pt]
+    \fi
+    {\footnotesize \textbf{\DepartmentName}\par}
+  \end{minipage}
+
+  \vspace*{0.4cm}
+\end{titlepage}
+
+% ==============================================================================
+% 2. TABLE OF CONTENTS PAGE
+% ==============================================================================
+\newpage
+\setcounter{page}{1}
+\tableofcontents
+\newpage
+
+% ==============================================================================
+% 3. TASKS & REPORT SECTIONS
+% ==============================================================================
+\input{tasks/01_feladat.tex}
+
+\newpage
+\input{tasks/02_feladat.tex}
+
+\newpage
+\input{tasks/03_feladat.tex}
+
+% ==============================================================================
+% 4. BIBLIOGRAPHY / IRODALOMJEGYZÉK
+% ==============================================================================
+\newpage
+\bibliographystyle{plain}
+\bibliography{references}
+
+% ==============================================================================
+% 5. APPENDICES / MELLÉKLETEK (CAD DRAWINGS & DATASHEETS)
+% ==============================================================================
+\newpage
+\appendix
+\section{Mellékletek: CAD Összeállítási Rajzok és Adatlapok}
+\label{sec:melleklet}
+
+A tervezett optikai finomállító egység és objektívfoglalat műszaki összeállítási rajzát (ISO szabványos rajzkerettel és tételjegyzékkel) az alábbi csatolt PDF dokumentum tartalmazza.
+
+\includepdf[
+  pages=-,
+  scale=0.92,
+  pagecommand={\thispagestyle{fancy}}
+]{appendices/cad_assembly.pdf}
+
+\end{document}

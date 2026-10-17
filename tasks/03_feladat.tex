@@ -1,0 +1,83 @@
+% ==============================================================================
+% 3. Feladat: Komponensválasztás és Numerikus Szimuláció
+% ==============================================================================
+
+\section{Feladat: Komponensválasztás és Numerikus Szimuláció}
+
+\begin{problem}[15 pont]
+Válasszon megfelelő képérzékelő szenzort és ipari optikát a specifikáció kielégítésére! Foglalja össze a paramétereket a Style B (2 oszlopos, multirow) táblázatformátumban, majd mellékelje a szabályozási kört szimuláló MATLAB forráskódot!
+\end{problem}
+
+\subsection{Kiválasztott optikai és érzékelő komponensek (Style B Táblázat)}
+A választott képérzékelő modul és ipari optika főbb specifikációit a \textbf{2. táblázat} tartalmazza a gyári adatlap alapján \cite{sony_imx_datasheet}.
+
+% --- STYLE B: 2-Column Component Specification Table with Multirow ---
+\begin{table}[ht!]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{8pt}
+\setlength{\arrayrulewidth}{2pt}
+\arrayrulecolor{white}
+\begin{tabularx}{\textwidth}{|X!{\color{white}\vrule width 3pt}X|}
+\hline
+\rowcolor{tableGray}
+\textbf{Optikai és Szenzor Paraméter} & \textbf{Specifikált Érték / Típus} \\ \hline
+\rowcolor{white}
+Képérzékelő típusa & Sony IMX477 CMOS (Type 1/2.3) \\ \hline
+\rowcolor{tableGray}
+Aktív felbontás & $4056 \times 3040\text{ (12{,}3 MP)}$ \\ \hline
+\rowcolor{white}
+ & Vízszintes: $84{,}7^\circ$ \\
+\rowcolor{white}
+ & Függőleges: $66{,}1^\circ$ \\
+\rowcolor{white}
+\multirow{-3}{\linewidth}{Látómező (FOV a szenzorméretre)} & Diagonális: $100{,}1^\circ$ \\ \hline
+\rowcolor{tableGray}
+Objektív gyújtótávolsága ($f$) & $4{,}50\text{ mm}$ (Fix fókuszú) \\ \hline
+\rowcolor{white}
+Tárgytávolsági tartomány ($s$) & $25\text{ mm} - \infty$ \\ \hline
+\rowcolor{tableGray}
+Optikai szűrő tartománya & $400 - 700\text{ nm}$ (VIS látható spektrum) \\ \hline
+\rowcolor{white}
+Interfész és kommunikáció & MIPI CSI-2 (2 vagy 4 sávos) \\ \hline
+\end{tabularx}
+\caption{A választott ipari optikai és detektormodul műszaki specifikációi \cite{sony_imx_datasheet}}
+\label{tab:spec_tabla}
+\end{table}
+
+\subsection{Szimulációs MATLAB szkript}
+A PID szabályozó és a mechanikai szakasz zárt köri vizsgálatát az \textbf{1. forráskód} szerinti MATLAB szkript végzi.
+
+\begin{lstlisting}[language=Matlab, caption={PID szabályozási kör szimulációja és Bode-analízis}]
+% =========================================================================
+% BME MOGI - Szabalyozastechnika es Muszaki Optika szimulacio
+% Hallgato: Minta Janos (TRRHBX)
+% =========================================================================
+clear; clc; close all;
+
+% Szakasz parameterei (1. feladat alapjan)
+J = 2.5e-3;   % Redukalt tehetetlensegi nyomatek [kg*m^2]
+b = 1.2e-2;   % Csillapitasi tenyezo [N*m*s/rad]
+k = 0.85;     % Visszaterito rugomerevseg [N*m/rad]
+Kt = 0.45;    % Motor nyomatektenyezo [N*m/A]
+
+s = tf('s');
+P = Kt / (J*s^2 + b*s + k);  % Szakasz atviteli fuggveny
+
+% PID szabalyozo tervezes
+Kp = 14.5;
+Ti = 0.22;
+Td = 0.045;
+C = Kp * (1 + 1/(Ti*s) + Td*s / (1 + 0.005*s));
+
+% Zart kor es vizsgalatok
+L = C * P;              % Felnyitott kor
+T = feedback(L, 1);     % Zart kor alapjelre
+S = feedback(1, L);     % Erzekenysegi fuggveny
+
+figure('Name', 'Zart kor lepesvalasza');
+step(T, 10);
+grid on;
+title('BME MOGI - Pozicionalo kor lepesvalasza');
+xlabel('Ido [s]'); ylabel('Szogelfordulas [rad]');
+\end{lstlisting}
