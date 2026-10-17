@@ -104,13 +104,13 @@
 % Running Header
 \fancyhead[L]{%
   \ifx\DepartmentIconPath\empty\else
-    \includegraphics[height=1cm]{\DepartmentIconPath}%
+    \raisebox{4.5mm}{\includegraphics[height=1.1cm]{\DepartmentIconPath}}%
   \fi
 }
 \fancyhead[R]{%
   \parbox[b]{15cm}{\raggedleft
     \large\textbf{\CourseName}\\[2pt]
-    \normalsize\textbf{\CourseCode}\vspace{0.5cm}
+    \normalsize\textbf{\CourseCode}\vspace{0.45cm}
   }%
 }
 

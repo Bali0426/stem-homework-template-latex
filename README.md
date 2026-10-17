@@ -107,6 +107,36 @@ Full-bleed edge-to-edge `BMEgreen` horizontal divider using TikZ page overlay:
 \end{minipage}
 ```
 
+Running header with vertically centered department logo:
+
+```latex
+\pagestyle{fancy}
+\fancyhf{}
+
+% Logo vertically centered between the green rule and top of the page
+\fancyhead[L]{%
+  \ifx\DepartmentIconPath\empty\else
+    \raisebox{4.5mm}{\includegraphics[height=1.1cm]{\DepartmentIconPath}}%
+  \fi
+}
+\fancyhead[R]{%
+  \parbox[b]{15cm}{\raggedleft
+    \large\textbf{\CourseName}\\[2pt]
+    \normalsize\textbf{\CourseCode}\vspace{0.45cm}
+  }%
+}
+
+% Full-bleed edge-to-edge dividing rule
+\renewcommand{\headrule}{%
+  \nointerlineskip
+  \begin{tikzpicture}[remember picture, overlay]
+    \draw[BMEgreen, line width=3pt] (current page.west |- 0, 0) -- (current page.east |- 0, 0);
+  \end{tikzpicture}%
+}
+\fancyfoot[C]{\thepage. oldal}
+\fancyfoot[R]{\small\StudentName\\\NeptunCode}
+```
+
 ---
 
 ### 3. Problem & Solution Boxes
