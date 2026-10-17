@@ -9,7 +9,7 @@
 Egységesített, szabványos LaTeX sablon házi feladatokhoz, laboratóriumi mérési jegyzőkönyvekhez és műszaki projektekhez a **Budapesti Műszaki és Gazdaságtudományi Egyetem (BME)** hallgatói számára.
 
 - **Fordító:** `lualatex` (a `-shell-escape` kapcsolóval a beágyazott Lua számításokhoz és kódrészletekhez)
-- **Nyelv:** Magyar (`\usepackage[magyar]{babel}` európai tizedesvessző-kezeléssel)
+- **Nyelv:** Magyar (`\usepackage[magyar]{babel}` tizedespont-konvencióval)
 - **Fordítás lépései:**
   ```bash
   lualatex -shell-escape main.tex
@@ -193,9 +193,9 @@ Fehér rácsvonalak váltakozó fehér és világosszürke (`tableGray`) sorokka
 \textbf{Megnevezés} & \textbf{Jelölés} & \textbf{Adat} \\
 \tableheaderrule
 Tárgy látószöge               & $\varphi$        & $2^\circ$ \\ \hline
-Legkisebb detektálandó méret  & $x_{\min}$       & $0{,}50\text{ mm}$ \\ \hline
+Legkisebb detektálandó méret  & $x_{\min}$       & $0.50\text{ mm}$ \\ \hline
 Tárgytávolság                 & $s$              & $200\text{ mm}$ \\ \hline
-Laterális mozgási sebesség    & $v$              & $0{,}01\text{ m/s}$ \\ \hline
+Laterális mozgási sebesség    & $v$              & $0.01\text{ m/s}$ \\ \hline
 Tápfeszültség                 & $U_t$            & $24\text{ V DC}$ \\ \hline
 \end{tabularx}
 \caption{A megadott bemeneti feladatparaméterek \cite{hazi}}
@@ -223,15 +223,15 @@ Alkatrész-adatlapokhoz megerősített `3pt` vastag fehér középső elválaszt
 \rowcolor{white}
 Képérzékelő típusa & Sony IMX477 CMOS (Type 1/2.3) \\ \hline
 \rowcolor{tableGray}
-Aktív felbontás & $4056 \times 3040\text{ (12{,}3 MP)}$ \\ \hline
+Aktív felbontás & $4056 \times 3040\text{ (12.3 MP)}$ \\ \hline
 \rowcolor{white}
- & Vízszintes: $84{,}7^\circ$ \\
+ & Vízszintes: $84.7^\circ$ \\
 \rowcolor{white}
- & Függőleges: $66{,}1^\circ$ \\
+ & Függőleges: $66.1^\circ$ \\
 \rowcolor{white}
-\multirow{-3}{\linewidth}{Látómező (FOV a szenzorméretre)} & Diagonális: $100{,}1^\circ$ \\ \hline
+\multirow{-3}{\linewidth}{Látómező (FOV a szenzorméretre)} & Diagonális: $100.1^\circ$ \\ \hline
 \rowcolor{tableGray}
-Objektív gyújtótávolsága ($f$) & $4{,}50\text{ mm}$ (Fix fókuszú) \\ \hline
+Objektív gyújtótávolsága ($f$) & $4.50\text{ mm}$ (Fix fókuszú) \\ \hline
 \rowcolor{white}
 Tárgytávolsági tartomány ($s$) & $25\text{ mm} - \infty$ \\ \hline
 \rowcolor{tableGray}
