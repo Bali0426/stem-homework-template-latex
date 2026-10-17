@@ -37,10 +37,12 @@
 
   \vspace{0.8cm}
   {\normalsize \DocumentDate\par}
-  \vspace{0.5cm}
-
   % Full-Bleed 3pt BME-green Divider Rule
-  \noindent\makebox[0pt][l]{\hspace*{-\oddsidemargin}\hspace*{-1in}\color{BMEgreen}\rule{\paperwidth}{3pt}}\par
+  \vspace{0.4cm}
+  {\par\noindent\begin{tikzpicture}[remember picture, overlay]
+    \draw[BMEgreen, line width=3pt] (current page.west |- 0, 0) -- (current page.east |- 0, 0);
+  \end{tikzpicture}\par}
+  \vspace{0.4cm}
 
   % Bottom Institutional Logo Strip (3 Columns)
   \vfill

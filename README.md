@@ -129,15 +129,11 @@ The department icon and label dynamically map based on the BME course code prefi
 | Department / Subject Area | Course Prefix | Icon File | Department Subtitle (`{{department_name}}`) |
 | :--- | :--- | :--- | :--- |
 | **Mechatronics, Optics & Mech. Info (MOGI)** | `BMEGEMIBM...` | `mogi.png` | `Mechatronika, Optika és`<br>`Gépészeti Informatika Tanszék` |
-| **Machine and Product Design (GT3)** | `BMEGEGT...` | `gt3.png` | `Gép- és Terméktervezés Tanszék` |
-| **Applied Mechanics (MM)** | `BMEGEMM...` | `mm.png` | `Műszaki Mechanika Tanszék` |
-| **Energy Engineering (ET)** | `BMEGEET...` | `et.png` | `Energetikai Gépek és Rendszerek Tanszék` |
-| **Fluid Mechanics (ÁI)** | `BMEGEAI...` | `ai.png` | `Áramlástan Tanszék` |
-| **Manufacturing Science & Tech (GYT)** | `BMEGEGY...` | `gyt.png` | `Gyártástudomány és -technológia Tanszék` |
-| **Materials Science & Tech (ATT)** | `BMEGEAT...` | `att.png` | `Anyagtudomány és -technológia Tanszék` |
-| **Building Services & Process Eng (ÉPGET)** | `BMEGEVG...` | `epget.png` | `Épületgépészeti és Eljárástechnikai Tanszék` |
+| **Manufacturing Science & Tech (GTT / GYT)** | `BMEGEGY...` | `gtt.png` | `Gyártástudomány és -technológia Tanszék` |
+| **Materials Science & Tech (ATT)** | `BMEGEAT...` | `att.jpg` | `Anyagtudomány és -technológia Tanszék` |
+| **Hydrodynamic Systems (HDR / ÁI)** | `BMEGEAI...` | `hdr.jpg` | `Hidrodinamikai Rendszerek Tanszék` |
 | **Polymer Engineering (PT)** | `BMEGEPT...` | `pt.png` | `Polimertechnika Tanszék` |
-| **General / Fallback GPK** | `BMEGEXX...` | `bme_gpk.png` | `Gépészmérnöki Kar` |
+| **General / Fallback GPK** | `BMEGEXX...` | `gpk_logo.png` | `Gépészmérnöki Kar` |
 
 ---
 
@@ -158,9 +154,12 @@ The cover page suppresses standard headers/footers (`\thispagestyle{empty}`):
    - `\vspace{0.8cm}`
    - **Date:** `\normalsize {{date}}` (e.g., `2026. május 8.`).
 2. **Full-Bleed BME-Green Divider:**
-   - Runs across the full physical paper width (`\paperwidth`) in `BMEgreen` (`3pt` thick):
+   - Runs across the full physical paper width (`\paperwidth`) from the absolute left to right edge in `BMEgreen` (`3pt` thick) using TikZ overlay:
      ```latex
-     \noindent\makebox[0pt][l]{\hspace*{-\oddsidemargin}\hspace*{-1in}\color{BMEgreen}\rule{\paperwidth}{3pt}}
+     \noindent
+     \begin{tikzpicture}[remember picture, overlay]
+       \draw[BMEgreen, line width=3pt] (current page.west |- 0, 0) -- (current page.east |- 0, 0);
+     \end{tikzpicture}
      ```
 3. **Institutional Footer Strip (`\vfill` at bottom):**
    - 3 minipages (`0.38\textwidth`, `0.24\textwidth`, `0.34\textwidth`) hosting the three logos and institutional addresses.
@@ -190,15 +189,17 @@ Configured for all pages after the cover page (`\pagestyle{fancy}`):
     \normalsize\textbf{BMEGEMIBMOA}\vspace{0.5cm}
   }%
 }
-% Full-bleed 3pt green divider rule
+% Full-bleed 3pt green divider rule (edge-to-edge)
 \renewcommand{\headrule}{%
   \nointerlineskip
-  \makebox[0pt][l]{\hspace*{-\oddsidemargin}\hspace*{-1in}\color{BMEgreen}\rule{\paperwidth}{3pt}}%
+  \begin{tikzpicture}[remember picture, overlay]
+    \draw[BMEgreen, line width=3pt] (current page.west |- 0, 0) -- (current page.east |- 0, 0);
+  \end{tikzpicture}%
 }
 
 % --- Running Footer ---
 \fancyfoot[C]{\thepage. oldal}
-\fancyfoot[R]{\small Minta János\\ABC123}
+\fancyfoot[R]{\small Minta János\\NEPTUN}
 ```
 
 ---
@@ -283,7 +284,7 @@ Legkisebb méret     & $x$              & $0{,}5\text{ mm}$ \\ \hline
 Tárgytávolság       & $s$              & $200\text{ mm}$   \\ \hline
 Laterális sebesség  & $v$              & $0{,}01\text{ m/s}$ \\ \hline
 \end{tabularx}
-\caption{A megadott feladatparaméterek az ABC123 Neptun-kód alapján \cite{hazi}}
+\caption{A megadott feladatparaméterek a NEPTUN Neptun-kód alapján \cite{hazi}}
 \end{table}
 
 % --- STYLE B: 2-Column Component Specification with Multirow ---

@@ -99,7 +99,9 @@
 % Full-bleed 3pt BME-green header divider
 \renewcommand{\headrule}{%
   \nointerlineskip
-  \makebox[0pt][l]{\hspace*{-\oddsidemargin}\hspace*{-1in}\color{BMEgreen}\rule{\paperwidth}{3pt}}%
+  \begin{tikzpicture}[remember picture, overlay]
+    \draw[BMEgreen, line width=3pt] (current page.west |- 0, 0) -- (current page.east |- 0, 0);
+  \end{tikzpicture}%
 }
 
 % Running Footer
