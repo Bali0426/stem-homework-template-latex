@@ -50,12 +50,12 @@ A PID szabályozó és a mechanikai szakasz zárt köri vizsgálatát az \textbf
 
 \newpage
 \begin{lstlisting}[style=matlabdark, caption={Irányítástechnikai szimuláció és zárt köri átviteli függvények (MATLAB)}]
-% Szabalyozastechnika - 2. szorgalmi feladat
+(*@\matlabrule@*)% Szabalyozastechnika - 2. szorgalmi feladat
 % Hallgato: Minta Janos (NEPTUN)
 
 clear; clc; close all;
 
-%% === 1. RÉSZ: Változók és Rendszerelemek ===
+(*@\matlabrule@*)%% === 1. RÉSZ: Változók és Rendszerelemek ===
 
 % Valtozok definialasa
 syms s t Y_sym
@@ -68,7 +68,7 @@ W_v = 3;
 % Bemeneti jelek
 R   = 3/s;
 
-%% === 2. RÉSZ: Zárt Kör és Dinamikai Szimuláció ===
+(*@\matlabrule@*)%% === 2. RÉSZ: Zárt Kör és Dinamikai Szimuláció ===
 s_num = tf('s');
 P = 1 / (1 + 2*s_num);
 C = 4 + 5/s_num;

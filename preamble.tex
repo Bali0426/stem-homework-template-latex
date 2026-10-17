@@ -66,7 +66,17 @@
 \definecolor{matlabKeyword}{RGB}{214, 148, 255}   % Builtin & keyword purple #d694ff
 \definecolor{matlabString}{RGB}{245, 175, 115}    % String peach/orange #f5af73
 \definecolor{matlabNumber}{RGB}{136, 136, 136}    % Gutter line numbers #888888
-\definecolor{matlabBorder}{RGB}{45, 45, 45}       % Subtle border #2d2d2d
+\definecolor{matlabSectionRule}{RGB}{45, 135, 215}% Section divider rule blue #2D87D7
+
+% Thick (1.5pt) MATLAB section dividing rule for commented sections
+\newcommand{\matlabrule}{%
+  \makebox[0pt][l]{%
+    \hspace*{-20pt}%
+    \raisebox{2.2ex}[0pt][0pt]{%
+      \color{matlabSectionRule}\rule{\linewidth+20pt}{1.5pt}%
+    }%
+  }%
+}
 
 \lstdefinestyle{matlabdark}{
   language=Matlab,
@@ -78,9 +88,8 @@
   numbers=left,
   numberstyle=\tiny\color{matlabNumber},
   numbersep=10pt,
-  frame=single,
-  rulecolor=\color{matlabBorder},
-  frameround=tttt,
+  frame=none,
+  escapeinside={(*@}{@*)},
   breaklines=true,
   showstringspaces=false,
   tabsize=4,

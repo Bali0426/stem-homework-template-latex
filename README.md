@@ -254,13 +254,13 @@ Optikai szűrő hullámhossza & $400 - 700\text{ nm}$ (VIS tartomány) \\ \hline
 Renders MATLAB code with dark charcoal background (`#181818`), lime-green comments (`#94EF84`), and purple keywords (`#D694FF`):
 
 ```latex
-\begin{lstlisting}[style=matlabdark, caption={PID szabályozási kör szimulációja}]
-% Szabalyozastechnika - 2. szorgalmi feladat
+\begin{lstlisting}[style=matlabdark, caption={Irányítástechnikai szimuláció és zárt köri átviteli függvények (MATLAB)}]
+(*@\matlabrule@*)% Szabalyozastechnika - 2. szorgalmi feladat
 % Hallgato: Minta Janos (NEPTUN)
 
 clear; clc; close all;
 
-%% === 1. RÉSZ: Rendszerelemek definíciója ===
+(*@\matlabrule@*)%% === 1. RÉSZ: Rendszerelemek definíciója ===
 
 % Szimbolikus valtozok
 syms s t Y_sym
@@ -273,7 +273,7 @@ W_v = 3;
 % Bemeneti alapjel
 R   = 3/s;
 
-%% === 2. RÉSZ: Dinamikai szimuláció ===
+(*@\matlabrule@*)%% === 2. RÉSZ: Dinamikai szimuláció ===
 s_num = tf('s');
 P = 1 / (1 + 2*s_num);
 C = 4 + 5/s_num;
