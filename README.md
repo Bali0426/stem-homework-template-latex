@@ -251,11 +251,16 @@ Optikai szűrő hullámhossza & $400 - 700\text{ nm}$ (VIS tartomány) \\ \hline
 
 ### 5. Code Listings (MATLAB Dark Theme)
 
-Renders MATLAB code with dark charcoal background (`#181818`), lime-green comments (`#94EF84`), and purple keywords (`#D694FF`):
+Renders MATLAB code replicating the MATLAB editor dark theme:
+- **Editor background**: `rgba(18, 18, 18)` (`#121212`)
+- **Gutter background (behind line numbers)**: `rgba(33, 33, 33)` (`#212121`)
+- **Section divider lines (`\matlabrule`)**: `rgba(125, 125, 125)` (`#7D7D7D`), 1.5pt thick rule placed above `%%` section headers
+- **Syntax highlighting**: Lime-green comments (`#94EF84`), purple keywords (`#D694FF`), peach strings (`#F5AF73`), and muted gray line numbers (`#888888`)
 
 ```latex
-\begin{lstlisting}[style=matlabdark, caption={Irányítástechnikai szimuláció és zárt köri átviteli függvények (MATLAB)}]
-(*@\matlabrule@*)% Szabalyozastechnika - 2. szorgalmi feladat
+\begin{matlabbox}
+\begin{lstlisting}[style=matlabdark]
+% Szabalyozastechnika - 2. szorgalmi feladat
 % Hallgato: Minta Janos (NEPTUN)
 
 clear; clc; close all;
@@ -287,6 +292,8 @@ grid on;
 title('BME MOGI - Zart kor lepesvalasza');
 xlabel('Ido [s]'); ylabel('Kimenet y(t)');
 \end{lstlisting}
+\end{matlabbox}
+\captionof{lstlisting}{Irányítástechnikai szimuláció és zárt köri átviteli függvények (MATLAB)}
 ```
 
 ---

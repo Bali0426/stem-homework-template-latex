@@ -15,6 +15,7 @@
 *.vrb
 *.bcf
 *.run.xml
+*.listing
 
 # Temporary editor files
 .vscode/

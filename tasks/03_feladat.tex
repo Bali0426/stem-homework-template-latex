@@ -2,6 +2,7 @@
 % 3. Feladat: Komponensválasztás és Numerikus Szimuláció
 % ==============================================================================
 
+\clearpage
 \section{Feladat: Komponensválasztás és Numerikus Szimuláció}
 
 \begin{problem}[15 pont]
@@ -45,12 +46,13 @@ Interfész és kommunikáció & MIPI CSI-2 (2 vagy 4 sávos) \\ \hline
 \label{tab:spec_tabla}
 \end{table}
 
+\clearpage
 \subsection{Szimulációs MATLAB szkript}
 A PID szabályozó és a mechanikai szakasz zárt köri vizsgálatát az \textbf{1. forráskód} szerinti MATLAB szkript végzi.
 
-\newpage
-\begin{lstlisting}[style=matlabdark, caption={Irányítástechnikai szimuláció és zárt köri átviteli függvények (MATLAB)}]
-(*@\matlabrule@*)% Szabalyozastechnika - 2. szorgalmi feladat
+\begin{matlabbox}
+\begin{lstlisting}[style=matlabdark]
+% Szabalyozastechnika - 2. szorgalmi feladat
 % Hallgato: Minta Janos (NEPTUN)
 
 clear; clc; close all;
@@ -84,3 +86,5 @@ grid on;
 title('BME MOGI - Szabalyozasi kor lepesvalasza');
 xlabel('Ido [s]'); ylabel('Kimenet y(t)');
 \end{lstlisting}
+\end{matlabbox}
+\captionof{lstlisting}{Irányítástechnikai szimuláció és zárt köri átviteli függvények (MATLAB)}
