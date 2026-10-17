@@ -1,16 +1,16 @@
-# 🎓 BME STEM LaTeX Template & Component Library
+# 🎓 BME STEM LaTeX Sablon és Komponens Könyvtár
 
-[![Compiler: LuaLaTeX](https://img.shields.io/badge/Compiler-LuaLaTeX-blue.svg)](https://www.luatex.org/)
-[![Language: Hungarian](https://img.shields.io/badge/Language-Magyar%20(Babel)-green.svg)](https://ctan.org/pkg/babel-hungarian)
-[![Institution: BME](https://img.shields.io/badge/University-BME%20Budapest-red.svg)](https://www.bme.hu)
-[![Faculty: GPK](https://img.shields.io/badge/Faculty-BME%20GPK-orange.svg)](https://gpk.bme.hu)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Fordító: LuaLaTeX](https://img.shields.io/badge/Fordító-LuaLaTeX-blue.svg)](https://www.luatex.org/)
+[![Nyelv: Magyar](https://img.shields.io/badge/Nyelv-Magyar%20(Babel)-green.svg)](https://ctan.org/pkg/babel-hungarian)
+[![Intézmény: BME](https://img.shields.io/badge/Egyetem-BME%20Budapest-red.svg)](https://www.bme.hu)
+[![Kar: GPK](https://img.shields.io/badge/Kar-BME%20GPK-orange.svg)](https://gpk.bme.hu)
+[![Licenc: MIT](https://img.shields.io/badge/Licenc-MIT-yellow.svg)](LICENSE)
 
-A standardized LaTeX template designed for homework assignments, laboratory reports (*mérési jegyzőkönyvek*), and technical projects at **Budapest University of Technology and Economics (BME)**.
+Egységesített, szabványos LaTeX sablon házi feladatokhoz, laboratóriumi mérési jegyzőkönyvekhez és műszaki projektekhez a **Budapesti Műszaki és Gazdaságtudományi Egyetem (BME)** hallgatói számára.
 
-- **Compiler:** `lualatex` (with `-shell-escape` for inline Lua and listings)
-- **Language:** Hungarian (`\usepackage[magyar]{babel}` with continental decimal commas)
-- **Compilation:**
+- **Fordító:** `lualatex` (a `-shell-escape` kapcsolóval a beágyazott Lua számításokhoz és kódrészletekhez)
+- **Nyelv:** Magyar (`\usepackage[magyar]{babel}` európai tizedesvessző-kezeléssel)
+- **Fordítás lépései:**
   ```bash
   lualatex -shell-escape main.tex
   bibtex main
@@ -19,51 +19,51 @@ A standardized LaTeX template designed for homework assignments, laboratory repo
 
 ---
 
-## 📚 Component Library (Copy & Paste)
+## 📚 Komponens Könyvtár (Copy & Paste)
 
-- [1. Metadata & Student Info](#1-metadata--student-info)
-- [2. Cover Page & Header Divider](#2-cover-page--header-divider)
-- [3. Problem & Solution Boxes](#3-problem--solution-boxes)
-- [4. Tables](#4-tables)
-  - [4.1 Style A: 3-Column Given Parameters](#41-style-a-3-column-given-parameters)
-  - [4.2 Style B: 2-Column Technical Specification (Multi-row)](#42-style-b-2-column-technical-specification-multi-row)
-  - [4.3 Style C: Measurement Data Table with Units (`siunitx`)](#43-style-c-measurement-data-table-with-units-siunitx)
-- [5. Code Listings (MATLAB Dark Theme)](#5-code-listings-matlab-dark-theme)
-- [6. Control Systems & Block Diagrams (TikZ)](#6-control-systems--block-diagrams-tikz)
-- [7. Simulation Plots & Step Responses (`pgfplots`)](#7-simulation-plots--step-responses-pgfplots)
-- [8. Mathematical Equations & State-Space Models](#8-mathematical-equations--state-space-models)
-- [9. Inline Lua Computation Bridge](#9-inline-lua-computation-bridge)
-- [10. External PDF & CAD Appendices](#10-external-pdf--cad-appendices)
+- [1. Metaadatok és Hallgatói Adatok](#1-metaadatok-és-hallgatói-adatok)
+- [2. Címlap és Fejléc Elválasztó Vonal](#2-címlap-és-fejléc-elválasztó-vonal)
+- [3. Feladat és Megoldás Dobozok](#3-feladat-és-megoldás-dobozok)
+- [4. Táblázatok](#4-táblázatok)
+  - [4.1 Style A: 3 Oszlopos Megadott Paraméterek](#41-style-a-3-oszlopos-megadott-paraméterek)
+  - [4.2 Style B: 2 Oszlopos Műszaki Specifikáció (Többsoros / Multi-row)](#42-style-b-2-oszlopos-műszaki-specifikáció-többsoros--multi-row)
+  - [4.3 Style C: Mérési Adattáblázat Mértékegységekkel (`siunitx`)](#43-style-c-mérési-adattáblázat-mértékegységekkel-siunitx)
+- [5. Forráskódok (MATLAB Sötét Téma)](#5-forráskódok-matlab-sötét-téma)
+- [6. Irányítástechnikai Hatásvázlatok és Blokkvázlatok (TikZ)](#6-irányítástechnikai-hatásvázlatok-és-blokkvázlatok-tikz)
+- [7. Szimulációs Grafikonok és Lépésválaszok (`pgfplots`)](#7-szimulációs-grafikonok-és-lépésválaszok-pgfplots)
+- [8. Matematikai Egyenletek és Állapottér Modellek](#8-matematikai-egyenletek-és-állapottér-modellek)
+- [9. Beágyazott Lua Számítási Híd](#9-beágyazott-lua-számítási-híd)
+- [10. Külső PDF és CAD Mellékletek](#10-külső-pdf-és-cad-mellékletek)
 
 ---
 
-### 1. Metadata & Student Info
+### 1. Metaadatok és Hallgatói Adatok
 
-Place this in `metadata.tex` to configure your submission:
+Helyezze el ezt a blokkot a `metadata.tex` fájlban a beadás adatainak testreszabásához:
 
 ```latex
-% --- Student Information ---
+% --- Hallgatói adatok ---
 \newcommand{\StudentName}{Minta János}
 \newcommand{\NeptunCode}{NEPTUN}
 \newcommand{\StudentEmail}{minta.janos@edu.bme.hu}
 \newcommand{\DegreeProgram}{Mechatronikai mérnöki MSc}
 
-% --- Institution & Faculty ---
+% --- Intézmény és Kar ---
 \newcommand{\UniversityName}{Budapesti Műszaki és Gazdaságtudományi Egyetem}
 \newcommand{\UniversityAddress}{1111 Budapest, Műegyetem rkp. 3.}
 \newcommand{\FacultyName}{Gépészmérnöki Kar}
 \newcommand{\FacultyShort}{BME GPK}
 \newcommand{\DepartmentName}{Mechatronika, Optika és\\Gépészeti Informatika Tanszék}
 
-% --- Course Details ---
+% --- Tantárgy és Feladat adatok ---
 \newcommand{\CourseName}{Műszaki Optika és Szabályozástechnika}
 \newcommand{\CourseCode}{BMEGEMIBMOA}
 \newcommand{\InstructorName}{Dr. Oktató Neve}
 \newcommand{\AssignmentTitle}{1. Házi Feladat: Szabályozási Kör Tervezése}
 \newcommand{\DocumentDate}{\today}
 
-% --- Logos (assets/ folder) ---
-% Department options: mogi.png, gtt.png, att.jpg, hdr.jpg, pt.png
+% --- Logók (assets/ mappa) ---
+% Elérhető tanszéki logók: mogi.png, gtt.png, att.jpg, hdr.jpg, pt.png
 \newcommand{\UniversityLogoPath}{assets/bmelogo.pdf}
 \newcommand{\FacultyLogoPath}{assets/gpk_logo.png}
 \newcommand{\DepartmentIconPath}{assets/mogi.png}
@@ -71,16 +71,16 @@ Place this in `metadata.tex` to configure your submission:
 
 ---
 
-### 2. Cover Page & Header Divider
+### 2. Címlap és Fejléc Elválasztó Vonal
 
 <p align="center">
   <img src="assets/previews/01_cover_page.png" alt="BME Címlap Minta" width="550" />
 </p>
 
-Full-bleed edge-to-edge `BMEgreen` horizontal divider using TikZ page overlay:
+Teljes margószélességű, lapszéltől lapszélig futó `BMEgreen` vízszintes elválasztó vonal TikZ réteg-pozicionálással:
 
 ```latex
-% Edge-to-edge dividing rule (place between metadata and logo strip)
+% Széltől szélig tartó elválasztó vonal (a metaadatok és a logósáv közé helyezendő)
 \vspace{0.4cm}
 {\par\noindent\begin{tikzpicture}[remember picture, overlay]
   \draw[BMEgreen, line width=3pt] (current page.west |- 0, 0) -- (current page.east |- 0, 0);
@@ -88,7 +88,7 @@ Full-bleed edge-to-edge `BMEgreen` horizontal divider using TikZ page overlay:
 \vspace{0.4cm}
 ```
 
-3-column institutional logo footer:
+3 oszlopos intézményi lábléc logókkal:
 
 ```latex
 \vfill
@@ -111,7 +111,7 @@ Full-bleed edge-to-edge `BMEgreen` horizontal divider using TikZ page overlay:
 \end{minipage}
 ```
 
-Running header with vertically centered department logo:
+Futó fejléc függőlegesen középre igazított tanszéki logóval:
 
 ![BME Futó Fejléc Minta](assets/previews/02_running_header.png)
 
@@ -119,7 +119,7 @@ Running header with vertically centered department logo:
 \pagestyle{fancy}
 \fancyhf{}
 
-% Logo vertically centered between the green rule and top of the page
+% A zöld vonal és a lap felső széle között vertikálisan középre igazított logó
 \fancyhead[L]{%
   \ifx\DepartmentIconPath\empty\else
     \raisebox{2.25mm}{\includegraphics[height=1.1cm]{\DepartmentIconPath}}%
@@ -132,7 +132,7 @@ Running header with vertically centered department logo:
   }%
 }
 
-% Full-bleed edge-to-edge dividing rule
+% Teljes szélességű zöld elválasztó vonal
 \renewcommand{\headrule}{%
   \nointerlineskip
   \begin{tikzpicture}[remember picture, overlay]
@@ -145,11 +145,11 @@ Running header with vertically centered department logo:
 
 ---
 
-### 3. Problem & Solution Boxes
+### 3. Feladat és Megoldás Dobozok
 
 ![Feladat és Megoldás Blokk Minta](assets/previews/03_problem_solution.png)
 
-Highlighted problem box with optional points badge and red-accented solution block:
+Kiemelt feladatdoboz opcionális pontszám-jelvénnyel és piros hangsúlyú megoldásblokkal:
 
 ```latex
 \begin{problem}[15 pont]
@@ -170,12 +170,12 @@ A Laplace-transzformált egyenletből az átviteli függvény:
 
 ---
 
-### 4. Tables
+### 4. Táblázatok
 
-Both standard template tables (Style A & Style B) feature the template-wide `\tableheaderrule` macro, which inserts a `1.5pt` `BMEgreen` horizontal accent rule immediately below the table header, precisely matching the problem box border thickness.
+Mindkét szabványos sablon-táblázat (Style A és Style B) tartalmazza a sablonszintű `\tableheaderrule` makrót, amely egy `1.5pt` vastag, `BMEgreen` színű hangsúlyos elválasztó vonalat húz közvetlenül a fejléc alá, pontosan megegyezve a feladatdoboz keretvastagságával.
 
-#### 4.1 Style A: 3-Column Given Parameters
-White grid lines on alternating white and light-gray (`tableGray`) rows with a green header line:
+#### 4.1 Style A: 3 Oszlopos Megadott Paraméterek
+Fehér rácsvonalak váltakozó fehér és világosszürke (`tableGray`) sorokkal, zöld fejléc alatti vonallal:
 
 ![Style A Táblázat Minta](assets/previews/04_table_style_a.png)
 
@@ -203,8 +203,8 @@ Tápfeszültség                 & $U_t$            & $24\text{ V DC}$ \\ \hline
 \end{table}
 ```
 
-#### 4.2 Style B: 2-Column Technical Specification (Multi-row)
-For component datasheets with a reinforced `3pt` central white divider and a `1.5pt` `BMEgreen` header rule:
+#### 4.2 Style B: 2 Oszlopos Műszaki Specifikáció (Többsoros / Multi-row)
+Alkatrész-adatlapokhoz megerősített `3pt` vastag fehér középső elválasztó vonallal és `1.5pt` `BMEgreen` fejléc-vonallal:
 
 ![Style B Műszaki Specifikáció Táblázat Minta](assets/previews/04_table_style_b.png)
 
@@ -242,7 +242,7 @@ Optikai szűrő hullámhossza & $400 - 700\text{ nm}$ (VIS tartomány) \\ \hline
 \end{table}
 ```
 
-#### 4.3 Style C: Measurement Data Table with Units (`siunitx`)
+#### 4.3 Style C: Mérési Adattáblázat Mértékegységekkel (`siunitx`)
 
 ![Style C Mérési Adatok Táblázat Minta](assets/previews/04_table_style_c.png)
 
@@ -267,16 +267,16 @@ Optikai szűrő hullámhossza & $400 - 700\text{ nm}$ (VIS tartomány) \\ \hline
 
 ---
 
-### 5. Code Listings (MATLAB Dark Theme)
+### 5. Forráskódok (MATLAB Sötét Téma)
 
 ![MATLAB Sötét Téma Kódrészlet Minta](assets/previews/05_matlab_code.png)
 
-Renders MATLAB code replicating the MATLAB editor dark theme:
-- **Editor background**: `rgba(18, 18, 18)` (`#121212`)
-- **Gutter background (behind line numbers)**: `rgba(33, 33, 33)` (`#212121`)
-- **Vertical gutter divider line**: `rgba(125, 125, 125)` (`#7D7D7D`), 1.5pt rule separating line numbers and code text
-- **Section divider lines (`\matlabrule`)**: `rgba(125, 125, 125)` (`#7D7D7D`), 1.5pt thick rule placed above `%%` section headers
-- **Syntax highlighting**: Lime-green comments (`#94EF84`), purple keywords (`#D694FF`), peach strings (`#F5AF73`), and muted gray line numbers (`#888888`)
+A MATLAB editor hivatalos sötét témáját hűen visszaadó kódrészlet-megjelenítés:
+- **Kódszerkesztő háttér**: `rgba(18, 18, 18)` (`#121212`)
+- **Sorszám-sáv háttér (a sorok számai mögött)**: `rgba(33, 33, 33)` (`#212121`)
+- **Függőleges elválasztó vonal**: `rgba(125, 125, 125)` (`#7D7D7D`), 1.5pt vastag vonal a sorszámok és a forráskód szövege között
+- **Szakasz-elválasztó vonalak (`\matlabrule`)**: `rgba(125, 125, 125)` (`#7D7D7D`), 1.5pt vastag vonal a `%%` szakaszelválasztók felett
+- **Szintaxiskiemelés**: Világoszöld kommentek (`#94EF84`), lila kulcsszavak (`#D694FF`), barackszínű sztringek (`#F5AF73`) és diszkrét szürke sorszámok (`#888888`)
 
 ```latex
 \begin{matlabbox}
@@ -319,17 +319,17 @@ xlabel('Ido [s]'); ylabel('Kimenet y(t)');
 
 ---
 
-### 6. Control Systems & Block Diagrams (TikZ)
+### 6. Irányítástechnikai Hatásvázlatok és Blokkvázlatok (TikZ)
 
 ![TikZ Szabályozási Kör Hatásvázlat Minta](assets/previews/06_tikz_block_diagram.png)
 
-Negative feedback control loop featuring reference input, summing junction, controller, plant, sensor, and disturbance:
+Negatív visszacsatolású szabályozási kör alapjellel, összegző taggal, szabályozóval, szakasszal, visszacsatoló érzékelővel és zavaró jellemzővel:
 
 ```latex
 \begin{figure}[ht!]
 \centering
 \begin{tikzpicture}[auto, node distance=2.2cm]
-  % Nodes
+  % Csomópontok
   \node [input, name=input] {};
   \node [sum, right=1.2cm of input] (sum1) {};
   \node [block, right=1.5cm of sum1] (controller) {$C(s)$\\PID Szabályozó};
@@ -339,7 +339,7 @@ Negative feedback control loop featuring reference input, summing junction, cont
   \node [input, above=1.5cm of sum2] (disturbance) {};
   \node [block, below=1.2cm of controller] (sensor) {$H(s)$\\Visszacsatolás};
 
-  % Signal lines
+  % Jelvonalak
   \draw [->, thick] (input) -- node [pos=0.2] {$r(t)$} node [very near end] {$+$} (sum1);
   \draw [->, thick] (sum1) -- node {$e(t)$} (controller);
   \draw [->, thick] (controller) -- node [very near end] {$+$} (sum2);
@@ -347,7 +347,7 @@ Negative feedback control loop featuring reference input, summing junction, cont
   \draw [->, thick] (sum2) -- node {$u(t)$} (plant);
   \draw [->, thick] (plant) -- node [name=y, pos=0.7] {$y(t)$} (output);
   
-  % Feedback path
+  % Visszacsatoló ág
   \draw [->, thick] (y) |- (sensor);
   \draw [->, thick] (sensor) -| node [very near end] {$-$} (sum1);
 \end{tikzpicture}
@@ -358,11 +358,11 @@ Negative feedback control loop featuring reference input, summing junction, cont
 
 ---
 
-### 7. Simulation Plots & Step Responses (`pgfplots`)
+### 7. Szimulációs Grafikonok és Lépésválaszok (`pgfplots`)
 
 ![pgfplots Időtartományi Szimuláció Lépésválasz Minta](assets/previews/07_pgfplots_step_response.png)
 
-Time-domain dynamic responses styled in official BME colors (Reference in `BMEred`, Output in `blue`, Error in `orange`, Disturbance in `green!60!black`):
+Hivatalos BME színekkel megrajzolt időtartományi dinamikai válaszfüggvények (Alapjel: `BMEred`, Kimenet: `blue`, Hibajel: `orange`, Zavaráslecsengés: `green!60!black`):
 
 ```latex
 \begin{figure}[ht!]
@@ -384,25 +384,25 @@ Time-domain dynamic responses styled in official BME colors (Reference in `BMEre
     samples=300
 ]
 
-% Reference input r(t)
+% Referencia bemenet r(t)
 \addplot[domain=0:10, color=BMEred, dashed, line width=1.2pt] {1.0};
 \addlegendentry{Alapjel $r(t)$}
 
-% System output y(t)
+% Rendszer kimenete y(t)
 \addplot[domain=0:10, color=blue, line width=1.5pt] {
   1.0 - exp(-1.2*x)*(cos(deg(3.14*x)) + 0.38*sin(deg(3.14*x))) + 
   (x > 5 ? 0.25*exp(-1.5*(x-5))*sin(deg(4.0*(x-5))) : 0)
 };
 \addlegendentry{Kimenet $y(t)$}
 
-% Error signal e(t)
+% Hibajel e(t)
 \addplot[domain=0:10, color=orange, line width=1.2pt] {
   exp(-1.2*x)*(cos(deg(3.14*x)) + 0.38*sin(deg(3.14*x))) -
   (x > 5 ? 0.25*exp(-1.5*(x-5))*sin(deg(4.0*(x-5))) : 0)
 };
 \addlegendentry{Hibajel $e(t)$}
 
-% Disturbance decay d(t)
+% Zavarás lecsengése d(t)
 \addplot[domain=5:10, color=green!60!black, dotted, line width=1.4pt] {
   0.25*exp(-1.5*(x-5))
 };
@@ -417,20 +417,20 @@ Time-domain dynamic responses styled in official BME colors (Reference in `BMEre
 
 ---
 
-### 8. Mathematical Equations & State-Space Models
+### 8. Matematikai Egyenletek és Állapottér Modellek
 
 ![Matematikai Levezetés és Állapotegyenletek Minta](assets/previews/08_math_equations.png)
 
-Numbered equations, highlighted results, and state-space matrix representations:
+Számozott analitikus levezetések, kiemelt eredmények és mátrixos állapottér-ábrázolás:
 
 ```latex
-% Numbered analytical derivation
+% Számozott analitikus levezetés
 \begin{equation}
   \mathbf{P(s) = \frac{Y(s)}{U(s)} = \frac{K}{T_0^2 s^2 + 2\zeta T_0 s + 1}}
   \label{eq:atviteli_fuggveny}
 \end{equation}
 
-% State-space representation
+% Állapottér-modell mátrixos alakban
 \begin{align}
   \begin{bmatrix} \dot{x}_1 \\ \dot{x}_2 \end{bmatrix} &=
   \begin{bmatrix} 0 & 1 \\ -\frac{k}{J} & -\frac{b}{J} \end{bmatrix}
@@ -442,11 +442,11 @@ Numbered equations, highlighted results, and state-space matrix representations:
 
 ---
 
-### 9. Inline Lua Computation Bridge
+### 9. Beágyazott Lua Számítási Híd
 
 ![Lua Dinamikus Számítás Eredménye Minta](assets/previews/09_lua_computation.png)
 
-Pre-calculate exact numeric values via Lua and print them straight into TeX macros:
+Pontos numerikus értékek előzetes kiszámítása beágyazott Lua környezetben és közvetlen kiírása TeX makrókba:
 
 ```latex
 \begin{luacode*}
@@ -460,17 +460,17 @@ end
 \end{luacode*}
 \directlua{calculate_design_params()}
 
-% Use the calculated value anywhere in text or math:
+% A számított érték bárhol közvetlenül felhasználható folyószövegben vagy egyenletben:
 A számított elméleti gyújtótávolság: $f = \calcFocLength\text{ mm}$.
 ```
 
 ---
 
-### 10. External PDF & CAD Appendices
+### 10. Külső PDF és CAD Mellékletek
 
 ![Mellékletek és CAD Csatolás Minta](assets/previews/10_cad_appendix.png)
 
-Seamlessly attach multi-page CAD drawings, datasheets, or schematics at the end of the report while maintaining headers:
+Többoldalas CAD összeállítási rajzok, adatlapok vagy kapcsolási rajzok zökkenőmentes csatolása a jegyzőkönyv végéhez az egységes futó fejléc megtartásával:
 
 ```latex
 \newpage
