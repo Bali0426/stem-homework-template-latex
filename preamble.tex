@@ -43,6 +43,14 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 
+% Green accent divider line for table headers (matches problem box border: 1.5pt BMEgreen)
+\newcommand{\tableheaderrule}{%
+  \noalign{\global\arrayrulewidth=1.5pt}%
+  \arrayrulecolor{BMEgreen}\hline%
+  \noalign{\global\arrayrulewidth=2pt}%
+  \arrayrulecolor{white}%
+}
+
 % --- TikZ & Block Diagrams ---
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows.meta,positioning,calc}

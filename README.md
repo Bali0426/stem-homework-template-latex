@@ -172,8 +172,10 @@ A Laplace-transzformált egyenletből az átviteli függvény:
 
 ### 4. Tables
 
+Both standard template tables (Style A & Style B) feature the template-wide `\tableheaderrule` macro, which inserts a `1.5pt` `BMEgreen` horizontal accent rule immediately below the table header, precisely matching the problem box border thickness.
+
 #### 4.1 Style A: 3-Column Given Parameters
-White grid lines on alternating white and light-gray (`tableGray`) rows:
+White grid lines on alternating white and light-gray (`tableGray`) rows with a green header line:
 
 ![Style A Táblázat Minta](assets/previews/04_table_style_a.png)
 
@@ -187,8 +189,9 @@ White grid lines on alternating white and light-gray (`tableGray`) rows:
 \rowcolors{2}{white}{tableGray}
 \begin{tabularx}{\textwidth}{|X|X|X|}
 \hline
-\rowcolor{white}
-\textbf{Megnevezés} & \textbf{Jelölés} & \textbf{Adat} \\ \hline
+\rowcolor{tableGray}
+\textbf{Megnevezés} & \textbf{Jelölés} & \textbf{Adat} \\
+\tableheaderrule
 Tárgy látószöge               & $\varphi$        & $2^\circ$ \\ \hline
 Legkisebb detektálandó méret  & $x_{\min}$       & $0{,}50\text{ mm}$ \\ \hline
 Tárgytávolság                 & $s$              & $200\text{ mm}$ \\ \hline
@@ -201,7 +204,7 @@ Tápfeszültség                 & $U_t$            & $24\text{ V DC}$ \\ \hline
 ```
 
 #### 4.2 Style B: 2-Column Technical Specification (Multi-row)
-For component datasheets with a reinforced `3pt` central white divider and a green accent header rule:
+For component datasheets with a reinforced `3pt` central white divider and a `1.5pt` `BMEgreen` header rule:
 
 ![Style B Műszaki Specifikáció Táblázat Minta](assets/previews/04_table_style_b.png)
 
@@ -216,10 +219,7 @@ For component datasheets with a reinforced `3pt` central white divider and a gre
 \hline
 \rowcolor{tableGray}
 \textbf{Optikai és Szenzor Paraméter} & \textbf{Specifikált Érték / Típus} \\
-\noalign{\global\arrayrulewidth=2.5pt}
-\arrayrulecolor{BMEgreen}\hline
-\noalign{\global\arrayrulewidth=2pt}
-\arrayrulecolor{white}
+\tableheaderrule
 \rowcolor{white}
 Képérzékelő típusa & Sony IMX477 CMOS (Type 1/2.3) \\ \hline
 \rowcolor{tableGray}
