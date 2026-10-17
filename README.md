@@ -363,21 +363,38 @@ Standardized styles for control loops:
   - System output ($y(t)$): `blue, line width=1.5pt`
   - Error signal ($e(t)$): `orange, line width=1.5pt`
 
-### 9.5. Source Code Listings (`listings`)
-Formatted specifically for MATLAB, Python, and C++:
+### 9.5. Source Code Listings (`listings` & MATLAB Dark Theme)
+The template includes an authentic **MATLAB Editor Dark Theme** palette:
 
 ```latex
-\lstset{
-    frame=single,
-    basicstyle=\ttfamily\footnotesize,
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{mygreen}\itshape,
-    stringstyle=\color{mylilas},
-    breaklines=true,
-    showstringspaces=false
+\definecolor{matlabDarkBg}{RGB}{24, 24, 24}       % Editor background (#181818)
+\definecolor{matlabFg}{RGB}{240, 240, 240}       % Plain text / identifiers (#F0F0F0)
+\definecolor{matlabComment}{RGB}{148, 239, 132}   % Comment lime green (#94EF84)
+\definecolor{matlabKeyword}{RGB}{214, 148, 255}   % Builtin & keyword purple (#D694FF)
+\definecolor{matlabString}{RGB}{245, 175, 115}    % String peach/orange (#F5AF73)
+\definecolor{matlabNumber}{RGB}{136, 136, 136}    % Gutter line numbers (#888888)
+\definecolor{matlabBorder}{RGB}{45, 45, 45}       % Subtle container border (#2D2D2D)
+
+\lstdefinestyle{matlabdark}{
+  language=Matlab,
+  backgroundcolor=\color{matlabDarkBg},
+  basicstyle=\ttfamily\footnotesize\color{matlabFg},
+  keywordstyle=\color{matlabKeyword}\bfseries,
+  commentstyle=\color{matlabComment},
+  stringstyle=\color{matlabString},
+  numbers=left,
+  numberstyle=\tiny\color{matlabNumber},
+  numbersep=10pt,
+  frame=single,
+  rulecolor=\color{matlabBorder},
+  frameround=tttt,
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=4,
+  captionpos=b,
+  morekeywords={clear, clc, close, syms, all, tf, feedback, step, figure, grid, title, xlabel, ylabel}
 }
+\lstset{style=matlabdark}
 ```
 
 ### 9.6. CAD Assembly & Datasheet Appendices (`pdfpages`)

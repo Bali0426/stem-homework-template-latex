@@ -48,36 +48,39 @@ Interfész és kommunikáció & MIPI CSI-2 (2 vagy 4 sávos) \\ \hline
 \subsection{Szimulációs MATLAB szkript}
 A PID szabályozó és a mechanikai szakasz zárt köri vizsgálatát az \textbf{1. forráskód} szerinti MATLAB szkript végzi.
 
-\begin{lstlisting}[language=Matlab, caption={PID szabályozási kör szimulációja és Bode-analízis}]
-% =========================================================================
-% BME MOGI - Szabalyozastechnika es Muszaki Optika szimulacio
+\newpage
+\begin{lstlisting}[style=matlabdark, caption={Irányítástechnikai szimuláció és zárt köri átviteli függvények (MATLAB)}]
+% Szabalyozastechnika - 2. szorgalmi feladat
 % Hallgato: Minta Janos (NEPTUN)
-% =========================================================================
+
 clear; clc; close all;
 
-% Szakasz parameterei (1. feladat alapjan)
-J = 2.5e-3;   % Redukalt tehetetlensegi nyomatek [kg*m^2]
-b = 1.2e-2;   % Csillapitasi tenyezo [N*m*s/rad]
-k = 0.85;     % Visszaterito rugomerevseg [N*m/rad]
-Kt = 0.45;    % Motor nyomatektenyezo [N*m/A]
+%% === 1. RÉSZ: Változók és Rendszerelemek ===
 
-s = tf('s');
-P = Kt / (J*s^2 + b*s + k);  % Szakasz atviteli fuggveny
+% Valtozok definialasa
+syms s t Y_sym
 
-% PID szabalyozo tervezes
-Kp = 14.5;
-Ti = 0.22;
-Td = 0.045;
-C = Kp * (1 + 1/(Ti*s) + Td*s / (1 + 0.005*s));
+% Rendszerelemek
+W_p = 1 / (1 + 2*s);
+W_c = 4 + 5/s;
+W_v = 3;
+
+% Bemeneti jelek
+R   = 3/s;
+
+%% === 2. RÉSZ: Zárt Kör és Dinamikai Szimuláció ===
+s_num = tf('s');
+P = 1 / (1 + 2*s_num);
+C = 4 + 5/s_num;
 
 % Zart kor es vizsgalatok
 L = C * P;              % Felnyitott kor
-T = feedback(L, 1);     % Zart kor alapjelre
+T = feedback(L, 3);     % Zart szabalyozasi kor
 S = feedback(1, L);     % Erzekenysegi fuggveny
 
 figure('Name', 'Zart kor lepesvalasza');
 step(T, 10);
 grid on;
-title('BME MOGI - Pozicionalo kor lepesvalasza');
-xlabel('Ido [s]'); ylabel('Szogelfordulas [rad]');
+title('BME MOGI - Szabalyozasi kor lepesvalasza');
+xlabel('Ido [s]'); ylabel('Kimenet y(t)');
 \end{lstlisting}

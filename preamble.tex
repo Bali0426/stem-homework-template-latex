@@ -58,22 +58,40 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
-% --- Code Listings ---
+% --- Code Listings & MATLAB Dark Theme ---
 \usepackage{listings}
-\lstset{
-  frame=single,
-  basicstyle=\ttfamily\footnotesize,
+\definecolor{matlabDarkBg}{RGB}{24, 24, 24}       % Editor dark background #181818
+\definecolor{matlabFg}{RGB}{240, 240, 240}       % Plain text / identifiers #f0f0f0
+\definecolor{matlabComment}{RGB}{148, 239, 132}   % Comment lime green #94ef84
+\definecolor{matlabKeyword}{RGB}{214, 148, 255}   % Builtin & keyword purple #d694ff
+\definecolor{matlabString}{RGB}{245, 175, 115}    % String peach/orange #f5af73
+\definecolor{matlabNumber}{RGB}{136, 136, 136}    % Gutter line numbers #888888
+\definecolor{matlabBorder}{RGB}{45, 45, 45}       % Subtle border #2d2d2d
+
+\lstdefinestyle{matlabdark}{
+  language=Matlab,
+  backgroundcolor=\color{matlabDarkBg},
+  basicstyle=\ttfamily\footnotesize\color{matlabFg},
+  keywordstyle=\color{matlabKeyword}\bfseries,
+  commentstyle=\color{matlabComment},
+  stringstyle=\color{matlabString},
   numbers=left,
-  numberstyle=\tiny\color{gray},
-  numbersep=9pt,
-  keywordstyle=\color{blue}\bfseries,
-  commentstyle=\color{mygreen}\itshape,
-  stringstyle=\color{mylilas},
+  numberstyle=\tiny\color{matlabNumber},
+  numbersep=10pt,
+  frame=single,
+  rulecolor=\color{matlabBorder},
+  frameround=tttt,
   breaklines=true,
   showstringspaces=false,
-  tabsize=2,
-  captionpos=b
+  tabsize=4,
+  captionpos=b,
+  morekeywords={clear, clc, close, syms, all, tf, feedback, step, figure, grid, title, xlabel, ylabel},
+  literate=
+    {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ö}{{\"o}}1 {ő}{{\H{o}}}1
+    {ú}{{\'u}}1 {ü}{{\"u}}1 {ű}{{\H{u}}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1
+    {Ó}{{\'O}}1 {Ö}{{\"O}}1 {Ő}{{\H{O}}}1 {Ú}{{\'U}}1 {Ü}{{\"U}}1 {Ű}{{\H{U}}}1
 }
+\lstset{style=matlabdark}
 
 % --- Lua Computation Bridge ---
 \usepackage{luacode}
@@ -148,7 +166,7 @@
 % --- Hyperlinks & Bookmarks ---
 \usepackage[
   colorlinks=true,
-  linkcolor=BMEred,
+  linkcolor=black,
   citecolor=BMEgreen,
   urlcolor=blue,
   pdfauthor={\StudentName},
