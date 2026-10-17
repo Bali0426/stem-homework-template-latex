@@ -1,190 +1,272 @@
-# stem-homework-template-latex
-A template for stem homeworks written in latex.
+# 🎓 BME STEM Homework & Technical Report LaTeX Template
 
-# Antigravity LaTeX Template Specification: BME Engineering & Control Systems Report
+[![Compiler: LuaLaTeX](https://img.shields.io/badge/Compiler-LuaLaTeX-blue.svg)](https://www.luatex.org/)
+[![Language: Hungarian](https://img.shields.io/badge/Language-Magyar%20(Babel)-green.svg)](https://ctan.org/pkg/babel-hungarian)
+[![Institution: BME](https://img.shields.io/badge/University-BME%20Budapest-red.svg)](https://www.bme.hu)
+[![Faculty: GPK](https://img.shields.io/badge/Faculty-BME%20GPK-orange.svg)](https://gpk.bme.hu)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## 1. Document Overview & Compiler Configuration
-This specification defines the formatting, visual identity, dynamic assets (icons/logos), cover page structure, table styling, and component architecture for Budapest University of Technology and Economics (BME) engineering assignments and technical reports in **Antigravity**.
+A premier, highly standardized **LaTeX template** engineered specifically for technical reports, homework assignments (féléves házi feladatok), laboratory logs (mérési jegyzőkönyvek), and control system designs at the **Budapest University of Technology and Economics (Budapesti Műszaki és Gazdaságtudományi Egyetem – BME)**.
 
-* **Required Engine:** `lualatex` (`% !TEX program = lualatex`)
-  * Required for inline Lua scripting (`luacode*`) and native UTF-8 / OpenType font handling (`Latin Modern`).
-* **Document Class:** `\documentclass[12pt,a4paper]{article}`
-* **Language & Localization:** Hungarian (`\usepackage[magyar]{babel}`)
-  * Automatically formats section naming, date conventions, table captions (*"1. táblázat."*), TOC title (*"Tartalomjegyzék"*), and continental decimal commas in math (`-1,5`).
-* **Page Geometry (`geometry` package):**
-  * **Paper Size:** A4 (`210mm x 297mm`, i.e., `595.28pt x 841.89pt`)
-  * **Left / Right Margins:** `2.5cm` (`70.87pt`, leaving an active text width of `16.0cm` / `453.54pt`)
-  * **Top Margin:** `35mm`
-  * **Bottom Margin:** `30mm`
-  * **Header Height (`headheight`):** `36pt` (accommodates the `1cm` department icon and two-line course header)
-* **External PDF Embedding (`pdfpages`):**
-  * Used in appendices (`\includepdf[pages=-]{...}`) to attach full-page CAD assembly drawings (e.g., SolidWorks exports) and manufacturer component datasheets directly at the end of the report.
+Pre-configured for the **Faculty of Mechanical Engineering (GPK)** and easily adaptable to other BME faculties (VIK, TTK, KJK, VBK).
 
 ---
 
-## 2. Dynamic Icon & Institutional Logo System (Subject & Department Dependent)
+## 📑 Table of Contents
 
-The template uses a **two-level logo architecture**:
-1. **Running Header Icon (`\fancyhead[L]`):** A single department icon (`height=1cm`) displayed in the top-left header of every content page (Page 2 onwards).
-2. **Cover Page Institutional Footer Strip:** A 3-column bottom bar on the Main Title Page displaying the **University Logo** (left), **Faculty Logo** (center), and **Department Icon** (right).
+1. [Key Features](#1-key-features)
+2. [Compiler & Engine Requirements](#2-compiler--engine-requirements)
+3. [Document Architecture & Page Geometry](#3-document-architecture--page-geometry)
+4. [BME Institutional Identity & Dynamic Logo System](#4-bme-institutional-identity--dynamic-logo-system)
+   - [4.1 Cover Page Institutional Logos (Columns 1 & 2)](#41-cover-page-institutional-logos-columns-1--2)
+   - [4.2 Department Icons by Course Prefix (Column 3 & Header)](#42-department-icons-by-course-prefix-column-3--header)
+5. [Cover Page & Table of Contents Specification](#5-cover-page--table-of-contents-specification)
+   - [5.1 Cover Page Layout & Full-Bleed Divider](#51-cover-page-layout--full-bleed-divider)
+   - [5.2 Table of Contents Page](#52-table-of-contents-page)
+6. [Running Headers & Footers (`fancyhdr`)](#6-running-headers--footers-fancyhdr)
+7. [Visual Design System](#7-visual-design-system)
+   - [7.1 Color Palette (`xcolor`)](#71-color-palette-xcolor)
+   - [7.2 Typography & Scale (Latin Modern)](#72-typography--scale-latin-modern)
+8. [Engineering Table Specifications](#8-engineering-table-specifications)
+   - [8.1 Design Philosophy (Borderless White-Grid)](#81-design-philosophy-borderless-white-grid)
+   - [8.2 Style A: 3-Column Input Parameters](#82-style-a-3-column-input-parameters)
+   - [8.3 Style B: 2-Column Technical Specifications (Multi-Row)](#83-style-b-2-column-technical-specifications-multi-row)
+   - [8.4 Complete Table Reference Implementation](#84-complete-table-reference-implementation)
+9. [STEM Components & Modeling Suite](#9-stem-components--modeling-suite)
+   - [9.1 Lua Computation Bridge (`luacode*`)](#91-lua-computation-bridge-luacode)
+   - [9.2 Mathematical Derivations (`amsmath`)](#92-mathematical-derivations-amsmath)
+   - [9.3 Control System Block Diagrams (TikZ)](#93-control-system-block-diagrams-tikz)
+   - [9.4 Response Curves & Bode Plots (`pgfplots`)](#94-response-curves--bode-plots-pgfplots)
+   - [9.5 Source Code Listings (`listings`)](#95-source-code-listings-listings)
+   - [9.6 CAD Assembly & Datasheet Appendices (`pdfpages`)](#96-cad-assembly--datasheet-appendices-pdfpages)
+10. [Recommended Project Layout](#10-recommended-project-layout)
+11. [Quick Start & Compilation Guide](#11-quick-start--compilation-guide)
+12. [License](#12-license)
 
-### 2.1. Cover Page Fixed Institutional Logos (Columns 1 & 2)
-| Slot Variable | Default File | Format & Aspect | Institutional Text Beneath Logo (`\footnotesize`, centered) |
+---
+
+## 1. Key Features
+
+- **🏛️ BME Institutional Branding:** Native support for the 3-tier BME hierarchy (University, Faculty, and Department icon dynamic mapping based on course code).
+- **🇭🇺 Full Hungarian Localization:** Built on `\usepackage[magyar]{babel}` with continental decimal commas (`-1,5`), Hungarian table captions (*"1. táblázat."*), and localized pagination (*"1. oldal"*).
+- **⚡ LuaLaTeX Computation Engine:** Pre-calculate system parameters, transfer functions, and exact floating-point values directly via inline Lua scripts (`luacode*`).
+- **📊 Modern White-Grid Tables:** Clean, borderless tables with crisp white cell dividers and alternating light-gray fills (`tableGray`).
+- **🎛️ Control Systems & STEM Ready:** Pre-styled TikZ block diagrams, `pgfplots` step/Bode responses, framed MATLAB/Python listings, and full-page CAD appendix embedding.
+- **🎨 BME Corporate Identity Colors:** Official BME red (`BMEred`), corporate green (`BMEgreen`), and standardized signal plotting hues.
+
+---
+
+## 2. Compiler & Engine Requirements
+
+| Property | Value / Requirement | Notes |
+| :--- | :--- | :--- |
+| **Compiler Engine** | **`lualatex`** | Declared via `% !TEX program = lualatex`. Required for `luacode*` and native OpenType font loading. |
+| **Document Class** | `\documentclass[12pt,a4paper]{article}` | Base body size `12pt`. |
+| **Language & Locale** | Hungarian (`\usepackage[magyar]{babel}`) | Handles hyphenation, TOC title (*"Tartalomjegyzék"*), and date formats. |
+| **Font System** | Latin Modern (`lmodern`) | Loaded with OpenType Roman, Sans, and Math typefaces. |
+
+---
+
+## 3. Document Architecture & Page Geometry
+
+Configured via the `geometry` package to balance readability and full-width engineering figures:
+
+```latex
+\usepackage[
+  a4paper,
+  left=2.5cm,
+  right=2.5cm,
+  top=35mm,
+  bottom=30mm,
+  headheight=36pt
+]{geometry}
+```
+
+- **Paper Size:** A4 (`210mm` $\times$ `297mm`, i.e., `595.28pt` $\times$ `841.89pt`).
+- **Active Text Width:** `16.0cm` (`453.54pt`).
+- **Margins:** Left & Right `25mm`, Top `35mm`, Bottom `30mm`.
+- **Header Height (`headheight`):** `36pt` (specifically sized to host the `1cm` department icon and the two-line course header).
+
+---
+
+## 4. BME Institutional Identity & Dynamic Logo System
+
+The template features a **two-level branding architecture**:
+1. **Running Header Icon (`\fancyhead[L]`):** Department icon (`height=1cm`) displayed on every content page (Page 2 onward).
+2. **Cover Page Footer Strip:** A 3-column bottom bar on the title page featuring the University Logo, Faculty Logo, and Department Icon.
+
+```
++-----------------------------------------------------------------------------+
+|                                 COVER PAGE                                  |
+|                                                                             |
+|                         [ MAIN REPORT TITLE ]                               |
+|                                                                             |
+|                    Author Name    •    NEPTUN CODE                          |
+|                     Course Title - Course Code                              |
+|                    Tárgyfelelős: Oktató Neve                                |
+|                           2026. május 8.                                    |
+|                                                                             |
+| ======================= FULL-BLEED BMEGREEN RULE ========================= |
+|                                                                             |
+|    [ BME Logo ]               [ GPK Logo ]             [ Department Icon ]  |
+|  Budapesti Műszaki és       Gépészmérnöki Kar            Mechatronika,      |
+| Gazdaságtudományi Egyetem       (BME GPK)             Optika és Gépészeti   |
+|                                                       Informatika Tanszék   |
++-----------------------------------------------------------------------------+
+```
+
+### 4.1. Cover Page Institutional Logos (Columns 1 & 2)
+
+| Slot | Asset File | Format | Subtitle Label (`\footnotesize`, centered) |
 | :--- | :--- | :--- | :--- |
-| `{{university_logo}}` | `bme_logo.pdf` | Vector PDF (`703x189` pt, wide) | `Budapesti Műszaki és Gazdaságtudományi Egyetem` <br> `1111 Budapest, Műegyetem rkp. 3.` |
-| `{{faculty_logo}}` | `gpk_logo.png` | Square PNG (`484x484` px) | `Gépészmérnöki kar` <br> `(BME GPK)` |
+| **`{{university_logo}}`** | `bme_logo.pdf` | Vector PDF (`703x189` pt) | `Budapesti Műszaki és Gazdaságtudományi Egyetem`<br>`1111 Budapest, Műegyetem rkp. 3.` |
+| **`{{faculty_logo}}`** | `gpk_logo.png` | Square PNG (`484x484` px) | `Gépészmérnöki Kar`<br>`(BME GPK)` |
 
-### 2.2. Subject-Dependent Department Icons (Running Header & Cover Page Column 3)
-Because the paper's subject changes across courses, Antigravity should dynamically map the `{{department_icon}}` and `{{department_name}}` variables based on the course code (`BMEGE...`):
+### 4.2. Department Icons by Course Prefix (Column 3 & Header)
 
-| Department / Subject Area | Course Code Prefix | Icon Filename | Cover Page Column 3 Label (`{{department_name}}`) |
+The department icon and label dynamically map based on the BME course code prefix:
+
+| Department / Subject Area | Course Prefix | Icon File | Department Subtitle (`{{department_name}}`) |
 | :--- | :--- | :--- | :--- |
-| **Mechatronics, Optics & Mechanical Engineering Informatics (MOGI)** *(Control Systems, Technical Optics, Mechatronics)* | `BMEGEMIBM...` (e.g., `BMEGEMIBMRI`, `BMEGEMIBMOA`) | `mogi.png` | `Mechatronika, Optika és` <br> `Gépészeti Informatika` <br> `Tanszék` |
-| **Machine and Product Design (GT3)** *(CAD, Machine Elements, Product Design)* | `BMEGEGT...` | `gt3.png` | `Gép- és Terméktervezés` <br> `Tanszék` |
-| **Applied Mechanics (MM)** *(Statics, Strength of Materials, Dynamics, Vibrations)* | `BMEGEMM...` | `mm.png` | `Műszaki Mechanika` <br> `Tanszék` |
-| **Energy Engineering (ET)** *(Thermodynamics, Heat Transfer, Power Plants)* | `BMEGEET...` | `et.png` | `Energetikai Gépek és` <br> `Rendszerek Tanszék` |
-| **Fluid Mechanics (ÁI)** *(Fluid Dynamics, Turbomachinery)* | `BMEGEAI...` | `ai.png` | `Áramlástan` <br> `Tanszék` |
-| **Manufacturing Science and Engineering (GYT)** *(Machining, CNC, Production)* | `BMEGEGY...` | `gyt.png` | `Gyártástudomány és` <br> `-technológia Tanszék` |
-| **Materials Science and Engineering (ATT)** *(Metallurgy, Polymers, Material Testing)* | `BMEGEAT...` | `att.png` | `Anyagtudomány és` <br> `-technológia Tanszék` |
-| **Building Services and Process Engineering (ÉPGET)** *(HVAC, Process Engineering)* | `BMEGEVG...` | `epget.png` | `Épületgépészeti és Eljárástechnikai` <br> `Tanszék` |
-| **Polymer Engineering (PT)** *(Composites, Polymer Processing)* | `BMEGEPT...` | `pt.png` | `Polimertechnika` <br> `Tanszék` |
-| **General / Fallback BME GPK** | `BMEGEXX...` | `bme_gpk.png` | `Gépészmérnöki Kar` |
+| **Mechatronics, Optics & Mech. Info (MOGI)** | `BMEGEMIBM...` | `mogi.png` | `Mechatronika, Optika és`<br>`Gépészeti Informatika Tanszék` |
+| **Machine and Product Design (GT3)** | `BMEGEGT...` | `gt3.png` | `Gép- és Terméktervezés Tanszék` |
+| **Applied Mechanics (MM)** | `BMEGEMM...` | `mm.png` | `Műszaki Mechanika Tanszék` |
+| **Energy Engineering (ET)** | `BMEGEET...` | `et.png` | `Energetikai Gépek és Rendszerek Tanszék` |
+| **Fluid Mechanics (ÁI)** | `BMEGEAI...` | `ai.png` | `Áramlástan Tanszék` |
+| **Manufacturing Science & Tech (GYT)** | `BMEGEGY...` | `gyt.png` | `Gyártástudomány és -technológia Tanszék` |
+| **Materials Science & Tech (ATT)** | `BMEGEAT...` | `att.png` | `Anyagtudomány és -technológia Tanszék` |
+| **Building Services & Process Eng (ÉPGET)** | `BMEGEVG...` | `epget.png` | `Épületgépészeti és Eljárástechnikai Tanszék` |
+| **Polymer Engineering (PT)** | `BMEGEPT...` | `pt.png` | `Polimertechnika Tanszék` |
+| **General / Fallback GPK** | `BMEGEXX...` | `bme_gpk.png` | `Gépészmérnöki Kar` |
 
 ---
 
-## 3. Color Palette Specification (`xcolor`)
+## 5. Cover Page & Table of Contents Specification
 
-All custom colors are defined in the RGB color space (`0–255`), supplemented by standard `xcolor` grayscale mixes for tables and diagrams.
+### 5.1. Cover Page Layout & Full-Bleed Divider
 
-| Color Name | LaTeX Definition | RGB Values | Hex Code | Primary Usage |
-| :--- | :--- | :--- | :--- | :--- |
-| **`BMEred`** | `\definecolor{BMEred}{RGB}{209, 0, 0}` | `209, 0, 0` | `#D10000` | Reference signal (`r(t)`) plots in `pgfplots`, primary warning/accent highlights. |
-| **`BMEgreen`** | `\definecolor{BMEgreen}{RGB}{85, 157, 0}` | `85, 157, 0` | `#559D00` | Full-bleed `3pt` horizontal divider rule in running headers and across the Main Cover Page. |
-| **`mygreen`** | `\definecolor{mygreen}{RGB}{28, 172, 0}` | `28, 172, 0` | `#1CAC00` | Code comments (`commentstyle`) inside `listings` MATLAB blocks. |
-| **`mylilas`** | `\definecolor{mylilas}{RGB}{170, 55, 241}` | `170, 55, 241` | `#AA37F1` | String literals (`stringstyle`) inside `listings` MATLAB blocks. |
-| **`tableGray`** | `\definecolor{tableGray}{gray}{0.95}` (`gray!5`) | `242, 242, 242` | `#F2F2F2` | Alternating row background fill in specification and data tables. |
-| **`gray!10`** | Built-in `xcolor` mix | `230, 230, 230` | `#E6E6E6` | Fill color for TikZ control system blocks (`fill=gray!10`). |
-| **`green!60!black`** | Built-in `xcolor` mix | `0, 153, 0` | `#009900` | Disturbance signal (`d_o(t)`) dotted curve in `pgfplots`. |
-| **`blue`** | Base `xcolor` | `0, 0, 255` | `#0000FF` | Primary system output curve (`y(t)`) in `pgfplots` and MATLAB keywords (`keywordstyle`). |
-| **`orange`** | Base `xcolor` | `255, 128, 0` | `#FF8000` | Error signal curve (`e(t)`) in `pgfplots`. |
+The cover page suppresses standard headers/footers (`\thispagestyle{empty}`):
 
----
-
-## 4. Typography & Font Hierarchy
-
-The document uses the **Latin Modern** (`lmodern`) font family (loaded automatically by `lualatex`):
-* **Serif Body Font:** `LMRoman12-Regular` (`12pt` base size) with `LMRoman12-Bold` for headings, table headers, and key results.
-* **Monospace Font:** `LMMonoLt10-Bold` (used at `24.8pt` `\Huge` for the main Cover Page title) and `LMMono12-Regular` / `\footnotesize` for code listings and URLs.
-* **Math Font:** `LatinModernMath-Regular` / `CMMI`.
-
-### Typographic Scale
-| Element | LaTeX Command / Size | Font Family & Style | Alignment |
-| :--- | :--- | :--- | :--- |
-| **Cover Page Main Title** | `\Huge\texttt{\textbf{...}}` (`24.79pt`) | Monospace Bold (`LMMonoLt10-Bold`) | Centered |
-| **Cover Page Author & Neptun** | `\LARGE\textbf{...}` (`17.22pt`) | Serif Bold (`LMRoman12-Bold`) | Centered |
-| **Cover Page Course & Faculty Info** | `\large` (`14.35pt`) | Serif Regular (`LMRoman12-Regular`) | Centered |
-| **Cover Page Date** | `\normalsize` (`12pt`) | Serif Regular (`LMRoman12-Regular`) | Centered |
-| **Cover Page Logo Captions** | `\footnotesize` (`10pt`) | Serif Regular (`LMRoman10-Regular`) | Centered (3 columns) |
-| **Header Course Title** | `\large\textbf{...}` (`14.35pt`) | Serif Bold (`LMRoman12-Bold`) | Right-aligned |
-| **Header Course Code** | `\normalsize\textbf{...}` (`12pt`) | Serif Bold (`LMRoman12-Bold`) | Right-aligned |
-| **Section (`\section`) & TOC Title** | `\LARGE\textbf{...}` (`17.22pt`) | Serif Bold (`LMRoman12-Bold`) | Left-aligned |
-| **Subsection (`\subsection`)** | `\large\textbf{...}` (`14.35pt`) | Serif Bold (`LMRoman12-Bold`) | Left-aligned |
-| **Body Prose & Table Cells** | `\normalsize` (`12pt`) | Serif Regular (`LMRoman12-Regular`) | Justified (Prose) / Left (Tables) |
-| **Code Listings (`lstlisting`)** | `\ttfamily\footnotesize` (`10pt`) | Monospace Regular | Left-aligned |
-| **Line Numbers (`lstlisting`)** | `\tiny\color{gray}` (`6pt`) | Serif/Mono Tiny Gray | Left margin (`numbersep=9pt`) |
-
-* **Section Math Safety:** Always wrap mathematical expressions inside `\section` and `\subsection` titles with `\texorpdfstring{$...$}{fallback}` to prevent `hyperref` PDF bookmark warnings.
-
----
-
-## 5. Main Page (Cover Page) & Table of Contents Style
-
-For larger homework assignments and project reports (such as the Technical Optics report), the document starts with a dedicated **Main Title Page** (`\thispagestyle{empty}`) followed by a **Table of Contents** page before the numbered sections begin.
-
-### 5.1. Cover Page Visual Layout (Top to Bottom)
-1. **Page Style:** `\thispagestyle{empty}` (suppresses running header and footer on the cover page).
-2. **Title Block (Upper Half):**
-   * **Report Title:** Centered, `\Huge\texttt{\textbf{...}}` (Monospace Bold, `24.8pt`), spanning 1–2 lines.
-   * **Vertical Spacing:** `~2.5cm` (`\vspace{2.5cm}`).
-   * **Author & Neptun Code:** Centered, `\LARGE\textbf{Hallgató Neve \quad NEPTUN}` (`17.2pt` bold).
-   * **Metadata Lines (`\large`, `14.35pt`, regular weight, `~0.3cm` line spacing):**
-     * Line 1: `Gépészmérnöki Kar, Budapesti Műszaki és Gazdaságtudományi Egyetem`
-     * Line 2: `{{course_name}} - {{course_code}}` (e.g., `Műszaki Optika - BMEGEMIBMOA`)
-     * Line 3: `Tárgyfelelős: {{instructor_name}}` (e.g., `Tárgyfelelős: Dr. Nagy Balázs Vince`)
-   * **Date Line:** `\vspace{0.8cm}` followed by `\normalsize {{date}}` (e.g., `2026. május 8.`).
-3. **Full-Bleed Green Divider Line:**
-   * Placed immediately below the date (`\vspace{0.5cm}`).
-   * Spans the **entire physical paper width (`\paperwidth`)** from edge to edge in `BMEgreen` with a thickness of `3pt`:
+1. **Title Block (Top Half):**
+   - **Report Title:** `\Huge\texttt{\textbf{<Cím>}}` (Monospace Bold, `24.8pt`).
+   - `\vspace{2.5cm}`
+   - **Author & Neptun Code:** `\LARGE\textbf{Hallgató Neve \quad NEPTUN}` (`17.2pt`).
+   - **Metadata (`\large`, `14.35pt`):**
+     - Line 1: `Gépészmérnöki Kar, Budapesti Műszaki és Gazdaságtudományi Egyetem`
+     - Line 2: `{{course_name}} - {{course_code}}`
+     - Line 3: `Tárgyfelelős: {{instructor_name}}`
+   - `\vspace{0.8cm}`
+   - **Date:** `\normalsize {{date}}` (e.g., `2026. május 8.`).
+2. **Full-Bleed BME-Green Divider:**
+   - Runs across the full physical paper width (`\paperwidth`) in `BMEgreen` (`3pt` thick):
      ```latex
      \noindent\makebox[0pt][l]{\hspace*{-\oddsidemargin}\hspace*{-1in}\color{BMEgreen}\rule{\paperwidth}{3pt}}
      ```
-4. **Bottom Institutional Logo Strip (`\vfill` pushed to bottom):**
-   * A 3-column layout (`\begin{minipage}[t]{0.38\textwidth}`, `\begin{minipage}[t]{0.24\textwidth}`, `\begin{minipage}[t]{0.34\textwidth}`) aligned near the bottom margin:
-     * **Left Column:** University logo (`height=1.6cm`), followed by `\footnotesize` centered university name and address (`1111 Budapest, Műegyetem rkp. 3.`).
-     * **Middle Column:** Faculty logo (`height=2.0cm`), followed by `\footnotesize` centered faculty name (`Gépészmérnöki kar \\ (BME GPK)`).
-     * **Right Column:** Department icon (`height=1.4cm`), followed by `\footnotesize` centered department name (`Mechatronika, Optika és \\ Gépészeti Informatika \\ Tanszék`).
+3. **Institutional Footer Strip (`\vfill` at bottom):**
+   - 3 minipages (`0.38\textwidth`, `0.24\textwidth`, `0.34\textwidth`) hosting the three logos and institutional addresses.
 
-### 5.2. Table of Contents Page (Page 2)
-* Starts on a new page (`\newpage`) with `\setcounter{page}{1}` so the TOC is numbered as `1. oldal`.
-* Uses the standard running header (`mogi.png` on left, course title + `BMEgreen` `3pt` rule on right) and running footer.
-* Renders `\tableofcontents` (*"Tartalomjegyzék"*), where top-level `\section` entries are bold without dot leaders and `\subsection` entries are regular weight with dotted leaders (`...`).
-* Ends with `\newpage` so Section 1 starts cleanly at the top of `2. oldal`.
+### 5.2. Table of Contents Page
+
+- Placed on Page 2 (`\newpage`) with `\setcounter{page}{1}` so content pagination starts as `1. oldal`.
+- Uses the standard running header and footer.
+- Renders `\tableofcontents` (*"Tartalomjegyzék"*).
+- Section math protection: Wrap math in titles with `\texorpdfstring{$...$}{fallback}` to prevent PDF bookmark warnings.
 
 ---
 
-## 6. Running Header & Footer Architecture (`fancyhdr`)
+## 6. Running Headers & Footers (`fancyhdr`)
 
-Applied to all pages after the Cover Page (`\pagestyle{fancy}`):
+Configured for all pages after the cover page (`\pagestyle{fancy}`):
 
-* **Top-Left Header (`\fancyhead[L]`):**
-  * Department icon (`\includegraphics[height=1cm]{mogi.png}`).
-* **Top-Right Header (`\fancyhead[R]`):**
-  * Right-aligned `15cm` `\parbox` containing:
-    * Line 1: `\large\textbf{<Course Title>}` (e.g., *Műszaki Optika házi feladat* or *Rendszer- és irányítástechnika*)
-    * Line 2: `\textbf{<Course Code>}` (e.g., *BMEGEMIBMOA* or *BMEGEMIBMRI*)
-    * Bottom padding: `\vspace{0.5cm}`
-* **Full-Bleed Green Header Rule (`\headrule`):**
-  * Draws a `3pt` thick `BMEgreen` bar across the entire `210mm` width of the A4 page.
-* **Three-Part Running Footer (`\fancyfoot`):**
-  * **Left (`\fancyfoot[L]`):** Assignment Name & Date (for short papers without a cover page) or empty (when a Cover Page is used).
-  * **Center (`\fancyfoot[C]`):** `\thepage. oldal` (Hungarian page numbering).
-  * **Right (`\fancyfoot[R]`):** `{{author_name}} \\ {{neptun_code}}` (2 lines, right-aligned).
-
----
-
-## 7. Table Formatting & Styling Specification (`colortbl` / `tabularx` / `multirow`)
-
-Tables in the report follow a distinctive **modern borderless white-grid aesthetic** with alternating light-gray (`gray!5`) and white rows.
-
-### 7.1. Core Visual Rules for Tables
-* **Full Text-Width Span:** Tables span exactly `\textwidth` (`16cm` / `453.54pt`) using `tabularx{\textwidth}{...}`.
-* **White Grid Lines (No Black Borders):**
-  * All vertical and horizontal cell dividers are drawn in **solid white (`\arrayrulecolor{white}`)** with a rule thickness of **`2pt`** (`\setlength{\arrayrulewidth}{2pt}`).
-  * For 2-column specification tables, the central vertical divider can be widened to `3pt` (`!{\color{white}\vrule width 3pt}`) to create a crisp visual gap between the property name column and the value column.
-* **Alternating Row Fills:**
-  * Uses `tableGray` (`\definecolor{tableGray}{gray}{0.95}`, i.e., `gray!5`) alternating with pure `white`.
-  * **Style A — 3-Column Parameter Tables (e.g., Table 1: *Megadott adatok*):**
-    * **Header Row:** Bold text (`\textbf{Megnevezés}`, `\textbf{Jelölés}`, `\textbf{Adat}`) on a `white` background.
-    * **Data Rows:** Row 1 `white`, Row 2 `tableGray`, Row 3 `white`, Row 4 `tableGray`, etc. (`\rowcolors{2}{white}{tableGray}`).
-    * **Column Widths:** 3 equal-width left-aligned `X` columns (`|X|X|X|`).
-  * **Style B — 2-Column Technical Specification Tables (e.g., Tables 2–5: *Optikai tulajdonságok / Detektor adatai*):**
-    * **Header / First Row:** Starts on `tableGray` (`\rowcolors{1}{tableGray}{white}`), with bold section/category headers in Column 1 (e.g., `\textbf{Optical Properties}`, `\textbf{Sensor}`) or multi-column bold headers (`\textbf{Model}`, `\textbf{Version}`, `\textbf{MP}`, `\textbf{Imaging Sensor}`).
-    * **Multi-Row Grouping:** Uses `\multirow` for properties with multiple sub-values (e.g., *Field of View at Max Sensor Format* spanning `Horizontal: 84.7°`, `Vertical: 66.1°`, `Diagonal: 100.1°` on a white background).
-* **Cell Padding:**
-  * Vertical padding: `\renewcommand{\arraystretch}{1.25}` (gives `~14.45pt` row height for single-line rows).
-  * Horizontal padding: `\setlength{\tabcolsep}{6pt}`.
-* **Table Captions:**
-  * Always placed **below** the `tabularx` environment (`\caption{...}`).
-  * Automatically prefixed with `"X. táblázat."` by `babel[magyar]`, often ending with a bracketed reference citation (e.g., `\caption{A választott objektív optikai tulajdonságai \cite{ref2}}`).
-
-### 7.2. Reference LaTeX Implementation for Both Table Styles
 ```latex
-% Required in preamble:
+\pagestyle{fancy}
+\fancyhf{}
+
+% --- Running Header ---
+\fancyhead[L]{\includegraphics[height=1cm]{mogi.png}}
+\fancyhead[R]{%
+  \parbox[b]{15cm}{\raggedleft
+    \large\textbf{Műszaki Optika házi feladat}\\[2pt]
+    \normalsize\textbf{BMEGEMIBMOA}\vspace{0.5cm}
+  }%
+}
+% Full-bleed 3pt green divider rule
+\renewcommand{\headrule}{%
+  \nointerlineskip
+  \makebox[0pt][l]{\hspace*{-\oddsidemargin}\hspace*{-1in}\color{BMEgreen}\rule{\paperwidth}{3pt}}%
+}
+
+% --- Running Footer ---
+\fancyfoot[C]{\thepage. oldal}
+\fancyfoot[R]{\small Minta János\\ABC123}
+```
+
+---
+
+## 7. Visual Design System
+
+### 7.1. Color Palette (`xcolor`)
+
+| Color Name | LaTeX Definition | RGB | Hex | Primary Role |
+| :--- | :--- | :--- | :--- | :--- |
+| **`BMEred`** | `\definecolor{BMEred}{RGB}{209, 0, 0}` | `209, 0, 0` | `#D10000` | Reference signals ($r(t)$), critical warnings, accents |
+| **`BMEgreen`** | `\definecolor{BMEgreen}{RGB}{85, 157, 0}` | `85, 157, 0` | `#559D00` | Full-bleed horizontal rules across cover and headers |
+| **`mygreen`** | `\definecolor{mygreen}{RGB}{28, 172, 0}` | `28, 172, 0` | `#1CAC00` | Code comments in MATLAB / Python listings |
+| **`mylilas`** | `\definecolor{mylilas}{RGB}{170, 55, 241}` | `170, 55, 241` | `#AA37F1` | String literals in code listings |
+| **`tableGray`** | `\definecolor{tableGray}{gray}{0.95}` | `242, 242, 242` | `#F2F2F2` | Alternating row background in data tables |
+| **`gray!10`** | Built-in `xcolor` mix | `230, 230, 230` | `#E6E6E6` | Fill background for TikZ block diagram blocks |
+| **`green!60!black`** | Built-in `xcolor` mix | `0, 153, 0` | `#009900` | Disturbance input curves ($d_o(t)$) in `pgfplots` |
+| **`blue`** | Base `xcolor` | `0, 0, 255` | `#0000FF` | System output response ($y(t)$), code keywords |
+| **`orange`** | Base `xcolor` | `255, 128, 0` | `#FF8000` | Control error signal curve ($e(t)$) in plots |
+
+### 7.2. Typography & Scale (Latin Modern)
+
+| Document Element | Command & Size | Font Family | Alignment |
+| :--- | :--- | :--- | :--- |
+| **Cover Title** | `\Huge\texttt{\textbf{...}}` (`24.8pt`) | Monospace Bold | Centered |
+| **Cover Author / Neptun** | `\LARGE\textbf{...}` (`17.2pt`) | Serif Bold | Centered |
+| **Cover Course Metadata** | `\large` (`14.4pt`) | Serif Regular | Centered |
+| **Cover Date** | `\normalsize` (`12.0pt`) | Serif Regular | Centered |
+| **Cover Logo Captions** | `\footnotesize` (`10.0pt`) | Serif Regular | Centered (3 cols) |
+| **Header Course Title** | `\large\textbf{...}` (`14.4pt`) | Serif Bold | Right |
+| **Header Course Code** | `\normalsize\textbf{...}` (`12.0pt`) | Serif Bold | Right |
+| **Section (`\section`)** | `\LARGE\textbf{...}` (`17.2pt`) | Serif Bold | Left |
+| **Subsection (`\subsection`)**| `\large\textbf{...}` (`14.4pt`) | Serif Bold | Left |
+| **Body Prose / Tables** | `\normalsize` (`12.0pt`) | Serif Regular | Justified / Left |
+| **Code Listings** | `\ttfamily\footnotesize` (`10.0pt`) | Monospace Regular | Left |
+| **Line Numbers** | `\tiny\color{gray}` (`6.0pt`) | Monospace / Serif | Left margin |
+
+---
+
+## 8. Engineering Table Specifications
+
+### 8.1. Design Philosophy (Borderless White-Grid)
+- **Full Width:** Tables span exactly `\textwidth` (`16.0cm`) via `tabularx`.
+- **Solid White Dividers:** All borders are drawn in pure white (`\arrayrulecolor{white}`) with a width of `2pt` (`\setlength{\arrayrulewidth}{2pt}`) to eliminate harsh black grids.
+- **Alternating Fills:** Alternates between pure `white` and `tableGray` (`gray!5`).
+- **Comfortable Padding:** `\renewcommand{\arraystretch}{1.25}` and `\setlength{\tabcolsep}{6pt}`.
+- **Captions:** Placed **below** the table, auto-formatted by Babel Magyar as `"X. táblázat."`.
+
+### 8.2. Style A: 3-Column Input Parameters
+- **Use Case:** Problem inputs, given data sets, student parameter assignments.
+- **Header:** Bold on white background.
+- **Data Rows:** Alternating `white` and `tableGray` (`\rowcolors{2}{white}{tableGray}`).
+- **Columns:** 3 equal-width `X` columns (`|X|X|X|`).
+
+### 8.3. Style B: 2-Column Technical Specifications (Multi-Row)
+- **Use Case:** Component datasheets, optical sensor specifications, motor parameters.
+- **Divider:** Reinforced `3pt` vertical white separator (`!{\color{white}\vrule width 3pt}`).
+- **Grouping:** Uses `\multirow` to bundle sub-attributes (e.g. horizontal, vertical, diagonal FOV).
+
+### 8.4. Complete Table Reference Implementation
+
+```latex
+% Preamble requirements:
 % \usepackage[table]{xcolor}
 % \usepackage{tabularx, multirow}
 % \definecolor{tableGray}{gray}{0.95}
 
-% --- STYLE A: 3-Column Input Parameters Table ---
+% --- STYLE A: 3-Column Given Parameters Table ---
 \begin{table}[ht!]
 \centering
 \renewcommand{\arraystretch}{1.25}
@@ -196,17 +278,15 @@ Tables in the report follow a distinctive **modern borderless white-grid aesthet
 \hline
 \rowcolor{white}
 \textbf{Megnevezés} & \textbf{Jelölés} & \textbf{Adat} \\ \hline
-Tárgy látószöge & $\varphi$ & $2^\circ$ \\ \hline
-Legkisebb méret & $x$ & $0.5\text{ mm}$ \\ \hline
-Tárgytávolság & $s$ & $200\text{ mm}$ \\ \hline
-Szín & & Monokróm \\ \hline
-Laterális sebesség & $v$ & $0.01\text{ m/s}$ \\ \hline
-Megvilágítás & & Napfény \\ \hline
+Tárgy látószöge     & $\varphi$        & $2^\circ$     \\ \hline
+Legkisebb méret     & $x$              & $0{,}5\text{ mm}$ \\ \hline
+Tárgytávolság       & $s$              & $200\text{ mm}$   \\ \hline
+Laterális sebesség  & $v$              & $0{,}01\text{ m/s}$ \\ \hline
 \end{tabularx}
-\caption{A megadott adatok TRRHBX neptun kód alapján \cite{hazi}}
+\caption{A megadott feladatparaméterek az ABC123 Neptun-kód alapján \cite{hazi}}
 \end{table}
 
-% --- STYLE B: 2-Column Component Specification Table with Multirow ---
+% --- STYLE B: 2-Column Component Specification with Multirow ---
 \begin{table}[ht!]
 \centering
 \renewcommand{\arraystretch}{1.25}
@@ -216,44 +296,149 @@ Megvilágítás & & Napfény \\ \hline
 \begin{tabularx}{\textwidth}{|X!{\color{white}\vrule width 3pt}X|}
 \hline
 \rowcolor{tableGray}
-\textbf{Optical Properties} & \\ \hline
+\textbf{Optikai tulajdonság} & \textbf{Érték / Specifikáció} \\ \hline
 \rowcolor{white}
- & Horizontal: $84.7^\circ$ \\
+ & Vízszintes: $84{,}7^\circ$ \\
 \rowcolor{white}
- & Vertical: $66.1^\circ$ \\
+ & Függőleges: $66{,}1^\circ$ \\
 \rowcolor{white}
-\multirow{-3}{\linewidth}{Field of View at Max Sensor Format} & Diagonal: $100.1^\circ$ \\ \hline
+\multirow{-3}{\linewidth}{Látómező (FOV)} & Diagonális: $100{,}1^\circ$ \\ \hline
 \rowcolor{tableGray}
-Focal length & $4.50\text{ mm}$ \\ \hline
+Gyújtótávolság ($f$) & $4{,}50\text{ mm}$ \\ \hline
 \rowcolor{white}
-Working distance & $25 - \infty$ \\ \hline
-\rowcolor{tableGray}
-Lens wavelength range & VIS \\ \hline
+Munkatávolság        & $25\text{ mm} - \infty$ \\ \hline
 \end{tabularx}
-\caption{A választott objektív optikai tulajdonságai \cite{lencse}}
+\caption{A választott ipari kameraoptika műszaki adatai \cite{adatlap}}
 \end{table}
 ```
 
 ---
 
-## 8. Mathematical, Graphic & Code Component Styles
+## 9. STEM Components & Modeling Suite
 
-### 8.1. Lua Computation Bridge (`luacode*`)
-* Placed in the preamble to pre-calculate exact floating-point constants and export them as TeX macros (`\def\cExpOne{...}`) via `\directlua{calculate_all()}` right after `\begin{document}`.
+### 9.1. Lua Computation Bridge (`luacode*`)
+Embed inline Lua functions directly in the preamble or before sections to calculate numeric parameters automatically:
 
-### 8.2. Mathematical Derivations (`amsmath`)
-* **Numbered Equations (`equation`):** Used for every key derivation step so equations are sequentially numbered `(1)`, `(2)`, `(3)` down the right margin.
-* **Final Results:** Highlighted inside `equation` or `align*` using `\mathbf{...}`.
+```latex
+\usepackage{luacode}
+\begin{luacode*}
+function calculate_system()
+    local R = 120.0
+    local C = 4.7e-6
+    local tau = R * C
+    tex.print(string.format("\\def\\tauVal{%.4f}", tau))
+end
+\end{luacode*}
+\directlua{calculate_system()}
+% The computed value is now accessible in LaTeX via \tauVal
+```
 
-### 8.3. TikZ Block Diagrams & Ray-Tracing Schematics
-* **Block Style:** `rectangle, draw, thick, fill=gray!10, minimum height=3em, minimum width=4em, align=center`.
-* **Summing Junctions:** `draw, circle, inner sep=0mm, minimum size=6mm, thick`.
-* **Arrows:** `>=Stealth`, `thick`, `node distance=2cm`.
+### 9.2. Mathematical Derivations (`amsmath`)
+- Always use numbered equations (`\begin{equation} ... \end{equation}`) for key analytical steps.
+- Highlight definitive transfer functions and final numerical results with `\mathbf{...}`.
+- Use Hungarian decimal commas: `$s = -1{,}5$` (or `siunitx` with `output-decimal-marker={,}`).
 
-### 8.4. Data Plots (`pgfplots`)
-* `\pgfplotsset{compat=1.18}`, `width=15cm`, `height=8cm`–`8.5cm`, `grid=both`, `axis lines=middle`, `samples=400`.
-* **Curve Hierarchy:** Reference input in `BMEred, dashed, thick`; disturbance in `green!60!black, dotted, thick`; output in `blue, line width=1.5pt`; error in `orange, line width=1.5pt`.
+### 9.3. Control System Block Diagrams (TikZ)
+Standardized styles for control loops:
 
-### 8.5. Code Listings (`listings`) & Appendices (`pdfpages`)
-* **MATLAB Code:** Framed (`frame=single`), `basicstyle=\ttfamily\footnotesize`, left line numbers (`\tiny\color{gray}`), `blue` keywords, `mylilas` strings, `mygreen` comments.
-* **Datasheet & CAD Drawing Appendices:** Embedded at the end of the document using `\includepdf[pages=-]{filename.pdf}` from the `pdfpages` package.
+```latex
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning}
+
+\tikzset{
+    block/.style={rectangle, draw, thick, fill=gray!10, minimum height=3em, minimum width=4em, align=center},
+    sum/.style={draw, circle, inner sep=0mm, minimum size=6mm, thick},
+    input/.style={coordinate},
+    output/.style={coordinate},
+    >=Stealth
+}
+```
+
+### 9.4. Response Curves & Bode Plots (`pgfplots`)
+- Pre-configured with `\pgfplotsset{compat=1.18}`, `width=15cm`, `height=8.5cm`, `grid=both`.
+- Standard signal traces:
+  - Reference signal ($r(t)$): `BMEred, dashed, thick`
+  - Disturbance ($d(t)$): `green!60!black, dotted, thick`
+  - System output ($y(t)$): `blue, line width=1.5pt`
+  - Error signal ($e(t)$): `orange, line width=1.5pt`
+
+### 9.5. Source Code Listings (`listings`)
+Formatted specifically for MATLAB, Python, and C++:
+
+```latex
+\lstset{
+    frame=single,
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{mygreen}\itshape,
+    stringstyle=\color{mylilas},
+    breaklines=true,
+    showstringspaces=false
+}
+```
+
+### 9.6. CAD Assembly & Datasheet Appendices (`pdfpages`)
+Attach full-page SolidWorks / Inventor 2D manufacturing drawings and manufacturer component datasheets seamlessly at the end of the report:
+
+```latex
+\usepackage{pdfpages}
+\appendix
+\section{Mellékletek: Összeállítási rajzok és gyári adatlapok}
+\includepdf[pages=-, scale=0.95, pagecommand={\thispagestyle{fancy}}]{melleklet_osszeallitas.pdf}
+```
+
+---
+
+## 10. Recommended Project Layout
+
+```text
+stem-homework-template-latex/
+├── main.tex                 # Master LaTeX document
+├── preamble.tex             # Packages, TikZ/pgfplots styles, colors, listings
+├── metadata.tex             # BME course code, title, student & instructor data
+├── assets/                  # Logos and department icons
+│   ├── bme_logo.pdf         # BME University logo
+│   ├── gpk_logo.png         # BME Faculty logo (GPK/VIK)
+│   └── mogi.png             # Department icon (MOGI/GT3/MM/etc.)
+├── figures/                 # Plots, TikZ diagrams, experimental setups
+├── tasks/                   # Modular task files
+│   ├── 01_feladat.tex
+│   ├── 02_feladat.tex
+│   └── 03_feladat.tex
+├── appendices/              # Full-page CAD exports and PDF datasheets
+│   └── cad_assembly.pdf
+├── references.bib           # BibLaTeX bibliography database
+└── README.md
+```
+
+---
+
+## 11. Quick Start & Compilation Guide
+
+### Local Compilation (CLI / latexmk)
+Compile using `lualatex` with `-shell-escape` enabled (required for `luacode*` and code formatting):
+
+```bash
+# Using latexmk (recommended)
+latexmk -lualatex -shell-escape main.tex
+
+# Or manual step-by-step compilation:
+lualatex -shell-escape main.tex
+biber main
+lualatex -shell-escape main.tex
+```
+
+### Overleaf Configuration
+1. Upload this repository as a `.zip` to **Overleaf**.
+2. Open **Menu** (top-left corner).
+3. Set **Compiler** to **`LuaLaTeX`**.
+4. Set **TeX Live Version** to latest (`2024` or `2025`).
+5. Recompile!
+
+---
+
+## 12. License
+
+Distributed under the **MIT License**. Created for the students and researchers of **Budapest University of Technology and Economics (BME)**.
