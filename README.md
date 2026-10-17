@@ -203,7 +203,11 @@ For component datasheets with a reinforced `3pt` central white divider:
 \begin{tabularx}{\textwidth}{|X!{\color{white}\vrule width 3pt}X|}
 \hline
 \rowcolor{tableGray}
-\textbf{Optikai és Szenzor Paraméter} & \textbf{Specifikált Érték / Típus} \\ \hline
+\textbf{Optikai és Szenzor Paraméter} & \textbf{Specifikált Érték / Típus} \\
+\noalign{\global\arrayrulewidth=2.5pt}
+\arrayrulecolor{BMEgreen}\hline
+\noalign{\global\arrayrulewidth=2pt}
+\arrayrulecolor{white}
 \rowcolor{white}
 Képérzékelő típusa & Sony IMX477 CMOS (Type 1/2.3) \\ \hline
 \rowcolor{tableGray}
