@@ -73,6 +73,10 @@ Place this in `metadata.tex` to configure your submission:
 
 ### 2. Cover Page & Header Divider
 
+<p align="center">
+  <img src="assets/previews/01_cover_page.png" alt="BME Címlap Minta" width="550" />
+</p>
+
 Full-bleed edge-to-edge `BMEgreen` horizontal divider using TikZ page overlay:
 
 ```latex
@@ -109,6 +113,8 @@ Full-bleed edge-to-edge `BMEgreen` horizontal divider using TikZ page overlay:
 
 Running header with vertically centered department logo:
 
+![BME Futó Fejléc Minta](assets/previews/02_running_header.png)
+
 ```latex
 \pagestyle{fancy}
 \fancyhf{}
@@ -141,6 +147,8 @@ Running header with vertically centered department logo:
 
 ### 3. Problem & Solution Boxes
 
+![Feladat és Megoldás Blokk Minta](assets/previews/03_problem_solution.png)
+
 Highlighted problem box with optional points badge and red-accented solution block:
 
 ```latex
@@ -167,6 +175,8 @@ A Laplace-transzformált egyenletből az átviteli függvény:
 #### 4.1 Style A: 3-Column Given Parameters
 White grid lines on alternating white and light-gray (`tableGray`) rows:
 
+![Style A Táblázat Minta](assets/previews/04_table_style_a.png)
+
 ```latex
 \begin{table}[ht!]
 \centering
@@ -191,7 +201,9 @@ Tápfeszültség                 & $U_t$            & $24\text{ V DC}$ \\ \hline
 ```
 
 #### 4.2 Style B: 2-Column Technical Specification (Multi-row)
-For component datasheets with a reinforced `3pt` central white divider:
+For component datasheets with a reinforced `3pt` central white divider and a green accent header rule:
+
+![Style B Műszaki Specifikáció Táblázat Minta](assets/previews/04_table_style_b.png)
 
 ```latex
 \begin{table}[ht!]
@@ -232,6 +244,8 @@ Optikai szűrő hullámhossza & $400 - 700\text{ nm}$ (VIS tartomány) \\ \hline
 
 #### 4.3 Style C: Measurement Data Table with Units (`siunitx`)
 
+![Style C Mérési Adatok Táblázat Minta](assets/previews/04_table_style_c.png)
+
 ```latex
 \begin{table}[ht!]
 \centering
@@ -254,6 +268,8 @@ Optikai szűrő hullámhossza & $400 - 700\text{ nm}$ (VIS tartomány) \\ \hline
 ---
 
 ### 5. Code Listings (MATLAB Dark Theme)
+
+![MATLAB Sötét Téma Kódrészlet Minta](assets/previews/05_matlab_code.png)
 
 Renders MATLAB code replicating the MATLAB editor dark theme:
 - **Editor background**: `rgba(18, 18, 18)` (`#121212`)
@@ -305,6 +321,8 @@ xlabel('Ido [s]'); ylabel('Kimenet y(t)');
 
 ### 6. Control Systems & Block Diagrams (TikZ)
 
+![TikZ Szabályozási Kör Hatásvázlat Minta](assets/previews/06_tikz_block_diagram.png)
+
 Negative feedback control loop featuring reference input, summing junction, controller, plant, sensor, and disturbance:
 
 ```latex
@@ -341,6 +359,8 @@ Negative feedback control loop featuring reference input, summing junction, cont
 ---
 
 ### 7. Simulation Plots & Step Responses (`pgfplots`)
+
+![pgfplots Időtartományi Szimuláció Lépésválasz Minta](assets/previews/07_pgfplots_step_response.png)
 
 Time-domain dynamic responses styled in official BME colors (Reference in `BMEred`, Output in `blue`, Error in `orange`, Disturbance in `green!60!black`):
 
@@ -399,6 +419,8 @@ Time-domain dynamic responses styled in official BME colors (Reference in `BMEre
 
 ### 8. Mathematical Equations & State-Space Models
 
+![Matematikai Levezetés és Állapotegyenletek Minta](assets/previews/08_math_equations.png)
+
 Numbered equations, highlighted results, and state-space matrix representations:
 
 ```latex
@@ -422,6 +444,8 @@ Numbered equations, highlighted results, and state-space matrix representations:
 
 ### 9. Inline Lua Computation Bridge
 
+![Lua Dinamikus Számítás Eredménye Minta](assets/previews/09_lua_computation.png)
+
 Pre-calculate exact numeric values via Lua and print them straight into TeX macros:
 
 ```latex
@@ -444,6 +468,8 @@ A számított elméleti gyújtótávolság: $f = \calcFocLength\text{ mm}$.
 
 ### 10. External PDF & CAD Appendices
 
+![Mellékletek és CAD Csatolás Minta](assets/previews/10_cad_appendix.png)
+
 Seamlessly attach multi-page CAD drawings, datasheets, or schematics at the end of the report while maintaining headers:
 
 ```latex
@@ -458,5 +484,6 @@ A tervezett modul gyártási rajzát az alábbi csatolt PDF tartalmazza:
   pages=-,
   scale=0.92,
   pagecommand={\thispagestyle{fancy}}
+  landscape=true
 ]{appendices/cad_assembly.pdf}
 ```
